@@ -1,6 +1,6 @@
-Accountable Automation Framework
+# Accountable Automation Framework
 
-## Project overview
+### Project overview
 
 This project examines the security implications of AI agents that operate under the user's authority. Using OpenClaw as a case study, it demonstrates how delegated automation can collapse identity boundaries when agents inherit and reuse  user credentials. In this condition, human and automation actions become indistinguishable in logs, weakening the blast attribution and non-repudiation while expanding the blast radius of compromise.
 
@@ -8,17 +8,17 @@ The project develops a threat model to expose this "dual identity" problem by di
 
 This is not a reaction to a single vulnerability. It's a response to a pattern. One where keeping up with the speed of adoption has led to overlooking the governance frameworks designed to contain it. 
 
-## What this demonstrates
+### What this demonstrates
 
 How least privilege strengthens attribution and contains the blast ardius when applied at the identity layer.
 The agent performs is intended functions fully within scoped permissions. No privilege bloat. No blank checks required.
 The tried and true operational friction of the tiered identity is not only relevant today, it restores accountability to autonomous workflows.
 
-## Connection to previous work
+### Connection to previous work
 
 This architecture extends my Secure Cloud Network project as a foundation. Much like that infrastructure, it features a ulti-layered appraoch to least privilege though segmentation, subnets (public and private), and controlled ingress. this project adds an identity layer, separating human authority from delegated automation at the architectural level.
 
-## Repository Structure
+### Repository Structure
 ```
 accountable_automation_framework/
 ├── README.md
@@ -47,7 +47,7 @@ accountable_automation_framework/
                                           # logs attribute actions to 
                                           # their actual authors
 ```
-## Prerequisites
+### Prerequisites
 
 - Terraform >= 1.0
 - VSCode terminal or the AWS CLI configured with sufficient permissions to create IAM, EC2, S3, CloudTrail, and Secrets Manager  
@@ -55,7 +55,7 @@ accountable_automation_framework/
 - An existing key pair for the bastion SSH access.
 - Your public IP address for bastion ingress scoping.
 
-## Cost considerations
+### Cost considerations
 
 - EC2 instances: t3.medium (Windows) and t3.micro (bastion running ubuntu)
 - VPC endpoint replace NAT gateway. Private subnet never  touches the Internet.
@@ -64,7 +64,7 @@ accountable_automation_framework/
 - CloudTrail:  first trail in each region is free
 - Teardown after demonstration to avoid ongoing charges: terraform destroy
 
-## Closing notes
+### Closing notes
 
 The Accountable Automation Framework is the third project in this series examining security across different infrastructure layers. The Secure Cloud Network addressed the network and resource layer through defense in depth. The Secure File Portal addressed enforcing the infrastructure layer to enable the system to fail closed in the event of an application layer compromise. This project addresses the identity layer, specifically the condition that emerges when automation inherits human authority without declared boundaries.
 
