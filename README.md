@@ -20,7 +20,7 @@ This architecture extends my Secure Cloud Network project as a foundation. Much 
 
 ## Repository Structure
 ```
-tiered-identity/
+accountable_automation_framework/
 ├── README.md
 ├── main.tf                    # Provider configuration and default tags
 ├── variables.tf               # Input variables
@@ -46,7 +46,7 @@ tiered-identity/
         └── tiered-identity-dataflow.png  # After — trust boundary restored,
                                           # logs attribute actions to 
                                           # their actual authors
-
+```
 ## Prerequisites
 
 - Terraform >= 1.0
