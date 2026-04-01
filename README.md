@@ -1,4 +1,4 @@
-# Accountable Automation Framework
+Accountable Automation Framework
 
 ## Project overview
 
