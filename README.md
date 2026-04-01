@@ -32,7 +32,7 @@ accountable_automation_framework/
 ├── secrets.tf                 # AWS Secrets Manager — replaces plaintext 
 │                              # credential storage
 ├── cloudtrail.tf              # Tamper-proof audit trail
-├── instances.tf                 # Windows Server 2022 and bastion host
+├── instances.tf               # Windows Server 2022 and bastion host
 ├── outputs.tf                 # Post-apply configuration values
 ├── .gitignore                 # Protects sensitive files from version control
 └── docs/
