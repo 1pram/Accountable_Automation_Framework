@@ -16,7 +16,7 @@ The tried and true operational friction of the tiered identity is not only relev
 
 ### Connection to previous work
 
-This architecture extends my Secure Cloud Network project as a foundation. Much like that infrastructure, it features a ulti-layered appraoch to least privilege though segmentation, subnets (public and private), and controlled ingress. this project adds an identity layer, separating human authority from delegated automation at the architectural level.
+This architecture extends my [Secure Cloud Network](https://github.com/1pram/Secure_Cloud_Network.git) project as a foundation. Much like that infrastructure, it features a ulti-layered appraoch to least privilege though segmentation, subnets (public and private), and controlled ingress. this project adds an identity layer, separating human authority from delegated automation at the architectural level.
 
 ### Repository Structure
 ```
@@ -69,8 +69,7 @@ accountable_automation_framework/
 The Accountable Automation Framework is the third project in this series examining security across different infrastructure layers. The Secure Cloud Network addressed the network and resource layer through defense in depth. The Secure File Portal addressed enforcing the infrastructure layer to enable the system to fail closed in the event of an application layer compromise. This project addresses the identity layer, specifically the condition that emerges when automation inherits human authority without declared boundaries.
 
 
-For a deeper dive
-The threat model, click here:
-The complete write-up/related article, click here:
-
+For a deeper dive:
+The threat model, click here
+The complete write-up/related article, click here 
 
