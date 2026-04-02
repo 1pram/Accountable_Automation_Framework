@@ -1,0 +1,7 @@
+# terraform.tfvars.example
+# Copy this file to terraform.tfvars and supply your own values
+# Never commit terraform.tfvars to version control
+# Add terraform.tfvars to your .gitignore
+
+my_ip              = "YOUR_IP_ADDRESS/32"         # e.g. "203.0.113.1/32"
+ai_service_api_key = "your-openclaw-ai-service-api-key"
