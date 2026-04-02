@@ -73,7 +73,7 @@ For a deeper dive:
 The threat model, click here
 The complete write-up/related article, click here 
 
-###** Part two**
+### ** Part two **
 Coming soon
 OpenClaw agent deployment video featuring: CloudTrail log file validation, secret rotation, and full workflow demonstration.
 
