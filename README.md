@@ -16,7 +16,7 @@ The tried and true operational friction of the tiered identity is not only relev
 
 ### Connection to previous work
 
-This architecture extends my [Secure Cloud Network](https://github.com/1pram/Secure_Cloud_Network.git) project as a foundation. Much like that infrastructure, it features a ulti-layered appraoch to least privilege though segmentation, subnets (public and private), and controlled ingress. this project adds an identity layer, separating human authority from delegated automation at the architectural level.
+This architecture extends my [Secure Cloud Network](https://github.com/1pram/Secure_Cloud_Network.git) project as a foundation. Much like that infrastructure, it features a multi-layered approach to least privilege though segmentation, subnets (public and private), and controlled ingress. this project adds an identity layer, separating human authority from delegated automation at the architectural level.
 
 ### Repository Structure
 ```
