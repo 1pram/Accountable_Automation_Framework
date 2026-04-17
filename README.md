@@ -11,7 +11,7 @@ This is not a reaction to a single vulnerability. It's a response to a pattern. 
 ### What this demonstrates
 
 How least privilege strengthens attribution and contains the blast radius when applied at the identity layer.
-The agent performs is intended functions fully within scoped permissions. No privilege bloat. No blank checks required.
+The agent performs its intended functions fully within scoped permissions. No privilege bloat. No blank checks required.
 The tried and true operational friction of the tiered identity is not only relevant today, it restores accountability to autonomous workflows.
 
 ### Connection to previous work
