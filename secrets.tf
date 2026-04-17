@@ -1,22 +1,14 @@
-# secrets.tf
-# AWS Secrets Manager - replaces plaintext EBS credential storage
-# Encrypted, managed, auditable, and retrievable only by automation role
-# Every retrieval logged in CloudTrail with principal identity and secret path
-# Resolves information disclosure finding from dual identity threat model
-
+# AI service API key (stored encrypted in Secrets Manager)
+# Replaces plaintext credential storage on unmanaged EBS volume
+# Every retrieval logged in CloudTrail under automation role identity
+# Secret rotation deferred to part two (live agent demo)
 resource "aws_secretsmanager_secret" "automation_credentials" {
   name        = "openclaw/automation/ai-service-api-key"
-  description = "AI service API key for OpenClaw automation role - replaces plaintext EBS credential storage"
-
-  # Secret rotation - deferred to part two (live agent demo)
-  # rotation_lambda_arn = aws_lambda_function.rotation.arn
-
-  tags = {
-    Purpose = "Automation credential storage - encrypted managed auditable"
-  }
+  description = "AI service API key for OpenClaw automation role"
+  tags        = { Purpose = "AutomationCredentials", Project = "AAF" }
 }
 
-resource "aws_secretsmanager_secret_version" "automation_credentials" {
+resource "aws_secretsmanager_secret_version" "automation_credentials_value" {
   secret_id = aws_secretsmanager_secret.automation_credentials.id
   secret_string = jsonencode({
     api_key     = var.ai_service_api_key
