@@ -3,7 +3,7 @@
   "summary": {
     "title": "New Threat Model",
     "owner": "Isaac Pyram",
-    "description": "Restored attribution diagram",
+    "description": "This model represents a workflow where a user delegates authority to an automation process (Open Claw) which executes API calls against external services. The automation operates using the user's delegated identity rather than a distinct automation principal. Open Claw interacts with a state store to manage workflow execution and context, and performs actions on external services that appear as if they originate from the user. Logging and monitoring systems observe activity primarily at the detection surface, capturing interactions between the user and external services. However, internal automation behavior, state transitions, and execution context are not fully observable. As a result, actions performed by the agent are logged under the user's identity, creating ambiguity between human-initiated and automated actions. This design introduces the risks related to identity attribution, delegated authority, and incomplete observability within the system.",
     "id": 0
   },
   "detail": {
