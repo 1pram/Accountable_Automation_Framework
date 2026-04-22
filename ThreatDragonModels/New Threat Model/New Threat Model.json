@@ -28,8 +28,8 @@
             },
             "visible": true,
             "shape": "trust-boundary-box",
-            "id": "1f0e88df-022b-438b-b65c-05de228bf10a",
             "zIndex": -1,
+            "id": "1f0e88df-022b-438b-b65c-05de228bf10a",
             "data": {
               "type": "tm.BoundaryBox",
               "name": "Trust Boundary",
@@ -68,6 +68,7 @@
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 2,
             "ports": {
               "groups": {
                 "top": {
@@ -151,7 +152,6 @@
               ]
             },
             "id": "93ae75b1-7126-497c-ac7b-b3b081555296",
-            "zIndex": 2,
             "data": {
               "type": "tm.Actor",
               "name": "User\n",
@@ -185,6 +185,7 @@
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 3,
             "ports": {
               "groups": {
                 "top": {
@@ -268,7 +269,6 @@
               ]
             },
             "id": "42c48da5-9be2-4ea6-86bb-f93132b6d3c9",
-            "zIndex": 3,
             "data": {
               "type": "tm.Actor",
               "name": "External Services\n",
@@ -295,13 +295,14 @@
                 "text": "Authorization \nGrants \ndelegated Access"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 4,
             "ports": {
               "groups": {
                 "top": {
@@ -385,7 +386,6 @@
               ]
             },
             "id": "ad242b45-34ba-4591-8a2a-a0a179830dbb",
-            "zIndex": 4,
             "data": {
               "type": "tm.Process",
               "name": "Authorization \nGrants \ndelegated \nAccess",
@@ -393,12 +393,47 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "0a7c3ef7-05c7-43fb-9f75-c5785f262dfe",
+                  "title": "Overly-broad delegated authority",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Elevation of privilege",
+                  "description": "The authorization process grants Open Claw authority derived from the user identity without separation or any kind of boundary enforcement.  As a result, the automation may inherit the full set of user privileges rather than only what is required to complete a task.",
+                  "mitigation": "Introduce a distinct automation identity with scoped permissions. Replace broad delegation with short-lived, task-specific access controls aligned with least privilege.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": ""
+                },
+                {
+                  "id": "be1037e4-5408-437e-b092-7b2103f69527",
+                  "title": "Delegation lacks strong attribution linkage",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Repudiation",
+                  "description": "The delegation event is not strongly linked to downstream actions performed by the automation agent. This weakens the ability to determine whether an action originated directly from the user or from Open Claw.",
+                  "mitigation": "Log delegation events with clear identifiers and correlate them with all previous automation actions using traceable context such as request IDs or session metadata.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 0,
+                "repudiation": 1,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 1
+              }
             }
           },
           {
@@ -422,6 +457,7 @@
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 5,
             "ports": {
               "groups": {
                 "top": {
@@ -505,7 +541,6 @@
               ]
             },
             "id": "8e233507-00bf-4b52-a7f8-7f6942117ced",
-            "zIndex": 5,
             "data": {
               "type": "tm.Actor",
               "name": "Open Claw\n",
@@ -539,6 +574,7 @@
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 6,
             "ports": {
               "groups": {
                 "top": {
@@ -622,7 +658,6 @@
               ]
             },
             "id": "78678623-44e3-43ca-a5b4-1e28dc2caa4c",
-            "zIndex": 6,
             "data": {
               "type": "tm.Process",
               "name": "State \nStore",
@@ -987,6 +1022,7 @@
             },
             "visible": true,
             "shape": "store",
+            "zIndex": 13,
             "ports": {
               "groups": {
                 "top": {
@@ -1070,7 +1106,6 @@
               ]
             },
             "id": "53dced5a-2926-4e3d-9eba-8c9a78a86bbf",
-            "zIndex": 13,
             "data": {
               "type": "tm.Store",
               "name": "Logging/Monitoring\n",
@@ -1084,7 +1119,13 @@
               "isSigned": false,
               "storesCredentials": false,
               "storesInventory": false,
-              "threats": []
+              "threats": [],
+              "threatFrequency": {
+                "tampering": 0,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0
+              }
             }
           },
           {
@@ -1103,8 +1144,8 @@
             },
             "visible": true,
             "shape": "td-text-block",
-            "id": "4b95592a-fd43-4749-b698-b3e177599f9d",
             "zIndex": 14,
+            "id": "4b95592a-fd43-4749-b698-b3e177599f9d",
             "data": {
               "type": "tm.Text",
               "name": "Detection Surface\n",
@@ -1127,8 +1168,8 @@
             },
             "visible": true,
             "shape": "td-text-block",
-            "id": "5641b178-6460-4534-8798-ba8f865d1446",
             "zIndex": 15,
+            "id": "5641b178-6460-4534-8798-ba8f865d1446",
             "data": {
               "type": "tm.Text",
               "name": "\"Logs attribute actions to the User identity\"\n\n",
@@ -1140,6 +1181,6 @@
     ],
     "diagramTop": 4,
     "reviewer": "",
-    "threatTop": 0
+    "threatTop": 4
   }
 }
