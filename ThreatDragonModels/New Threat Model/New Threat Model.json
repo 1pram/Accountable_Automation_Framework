@@ -450,8 +450,8 @@
                 "text": "Open Claw"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -548,9 +548,47 @@
               "isTrustBoundary": false,
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "providesAuthentication": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "efe82ddd-0548-4de4-9921-7092e2e47ce6",
+                  "title": "Automation impersonates user operationally",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Spoofing",
+                  "description": "Open Claw performs actions using delegated user authority, making automated activity indistinguishable from direct user actions. This allows the automation to effectively impersonate the user during execution.",
+                  "mitigation": "Execute automation under a distinct identity or role separate from the user. Ensure that all automatic actions preserve both the originating user context and the automation identity for clear attribution.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 7,
+                  "score": ""
+                },
+                {
+                  "id": "12da5bfc-d96d-4f0d-a59e-29fdf9f38f21",
+                  "title": "Compromise of automation leads to privilege misuse",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Spoofing",
+                  "description": "If Open Claw is compromised, it can use the delegated user authority to perform actions across external services with the same effective privileges as the user. This expands the impact of compromise beyond the automation environment.",
+                  "mitigation": "Limit delegated permissions to the minimum required for each task. Isolate the automation environment and restrict its ability to access sensitive operations beyond its intended scope.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 3,
+                "repudiation": 0
+              }
+            },
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove"
+              ],
+              "name": null
             }
           },
           {
@@ -1181,6 +1219,6 @@
     ],
     "diagramTop": 4,
     "reviewer": "",
-    "threatTop": 4
+    "threatTop": 8
   }
 }
