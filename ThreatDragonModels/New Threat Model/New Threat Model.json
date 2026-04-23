@@ -1244,13 +1244,26 @@
                   "new": false,
                   "number": 14,
                   "score": ""
+                },
+                {
+                  "id": "2372bd36-e305-4963-b311-582a4b676e51",
+                  "title": "Shared identity model causes denial of service during incident containment.",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Denial of service",
+                  "description": "When anomalous activity is detected and incident response actions are taken, containment requires disabling or restricting the compromised identity. Because Open Claw and the user share the same identity, this action removes access for both the automation and the human user. As a result, the legitimate user is denied access to their own environment during investigation and remediation.",
+                  "mitigation": "Separate automation and human identities to allow independent containment actions. Ensure that incident response can isolate automation without impacting the user's access to critical systems.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 15,
+                  "score": ""
                 }
               ],
               "threatFrequency": {
                 "tampering": 0,
                 "repudiation": 2,
                 "informationDisclosure": 0,
-                "denialOfService": 0
+                "denialOfService": 1
               }
             },
             "tools": {
@@ -1314,6 +1327,6 @@
     ],
     "diagramTop": 4,
     "reviewer": "",
-    "threatTop": 14
+    "threatTop": 15
   }
 }
