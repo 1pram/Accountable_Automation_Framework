@@ -582,13 +582,6 @@
                 "spoofing": 3,
                 "repudiation": 0
               }
-            },
-            "tools": {
-              "items": [
-                "boundary",
-                "button-remove"
-              ],
-              "name": null
             }
           },
           {
@@ -605,8 +598,8 @@
                 "text": "State Store"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -703,12 +696,34 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
               "isWebApplication": false,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "5dd42d2b-c241-4469-a231-e6e120d5946b",
+                  "title": "Workflow state can be altered to influence automation behavior",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "The state store maintains workflow context and execution data used by Open Claw. Unauthorized modification of this state can influence automation behavior, leading to unintended or malicious actions without directly interacting with the automation process.",
+                  "mitigation": "Restrict access to the state store and enforce integrity controls such as validation, versioning, and audit  logging of all state changes.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 9,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 0,
+                "tampering": 1,
+                "repudiation": 0,
+                "informationDisclosure": 0,
+                "denialOfService": 0,
+                "elevationOfPrivilege": 0
+              }
             },
             "children": [
               "c2241672-b668-4a06-a4ba-297a2560f137"
@@ -1219,6 +1234,6 @@
     ],
     "diagramTop": 4,
     "reviewer": "",
-    "threatTop": 8
+    "threatTop": 9
   }
 }
