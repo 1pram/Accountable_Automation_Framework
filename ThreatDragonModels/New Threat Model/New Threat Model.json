@@ -1231,11 +1231,24 @@
                   "new": false,
                   "number": 13,
                   "score": ""
+                },
+                {
+                  "id": "a9da2a43-9a1b-42f3-8213-030affef1d23",
+                  "title": "Automation activity lacks sufficient visibility for detection",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Repudiation",
+                  "description": "Internal automation activity, including execution flow and state interactions, is not fully visible  to monitoring systems. This reduces the ability to detect anomalous or malicious behavior originating from Open Claw in a timely manner.",
+                  "mitigation": "Extend monitoring to include detailed automation telemetry, including execution steps, state changes, and interaction with externa services. Correlate this data with user and delegation context.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 14,
+                  "score": ""
                 }
               ],
               "threatFrequency": {
                 "tampering": 0,
-                "repudiation": 1,
+                "repudiation": 2,
                 "informationDisclosure": 0,
                 "denialOfService": 0
               }
@@ -1301,6 +1314,6 @@
     ],
     "diagramTop": 4,
     "reviewer": "",
-    "threatTop": 13
+    "threatTop": 14
   }
 }
