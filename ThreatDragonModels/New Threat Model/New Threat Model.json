@@ -178,8 +178,8 @@
                 "text": "External Services"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -276,9 +276,47 @@
               "isTrustBoundary": false,
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "providesAuthentication": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "b77557cb-7f8d-4167-9e1e-e53ec3446edd",
+                  "title": "External services cannot distinguish automation from user",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "External services receive API calls made under the user's delegated identity. As a result, they cannot distinguish between direct user actions and actions performed by Open Claw.",
+                  "mitigation": "Use a distinct automation identity when interacting with external services and include contextual metadata to differentiate between user-initiated and automated actions.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 11,
+                  "score": ""
+                },
+                {
+                  "id": "f0abcbf1-f98c-48c1-8491-8fbe39c0f45d",
+                  "title": "Delegated access exposes data beyond intended scope",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "Open Claw operates using delegated user authority and may access data or perform actions that exceed the intended scope of the automation task. External services will process these requests as valid, potentially exposing sensitive data unnecessarily.",
+                  "mitigation": "Apply least-privilege access controls to all delegated permissions and restrict automation to only the specific resources and actions required for its functions.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 12,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 2,
+                "repudiation": 0
+              }
+            },
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove"
+              ],
+              "name": null
             }
           },
           {
@@ -1247,6 +1285,6 @@
     ],
     "diagramTop": 4,
     "reviewer": "",
-    "threatTop": 10
+    "threatTop": 12
   }
 }
