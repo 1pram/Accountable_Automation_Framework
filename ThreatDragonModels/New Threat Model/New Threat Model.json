@@ -714,12 +714,25 @@
                   "new": false,
                   "number": 9,
                   "score": ""
+                },
+                {
+                  "id": "23d32311-6f89-4691-80d2-6d376d36c8a7",
+                  "title": "State transitions are not fully observable",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "Changes to workflow state may not be fully captured or correlated with automation actions",
+                  "mitigation": "Log all state changes with timestamps an link them to automation actions using correlation identifiers to support traceability and investigation.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 10,
+                  "score": ""
                 }
               ],
               "threatFrequency": {
                 "spoofing": 0,
                 "tampering": 1,
-                "repudiation": 0,
+                "repudiation": 1,
                 "informationDisclosure": 0,
                 "denialOfService": 0,
                 "elevationOfPrivilege": 0
@@ -1234,6 +1247,6 @@
     ],
     "diagramTop": 4,
     "reviewer": "",
-    "threatTop": 9
+    "threatTop": 10
   }
 }
