@@ -166,154 +166,6 @@
           },
           {
             "position": {
-              "x": 710,
-              "y": -4970
-            },
-            "size": {
-              "width": 140,
-              "height": 60
-            },
-            "attrs": {
-              "text": {
-                "text": "External Services"
-              },
-              "body": {
-                "stroke": "red",
-                "strokeWidth": 2.5,
-                "strokeDasharray": null
-              }
-            },
-            "visible": true,
-            "shape": "actor",
-            "zIndex": 3,
-            "ports": {
-              "groups": {
-                "top": {
-                  "position": "top",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "right": {
-                  "position": "right",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "bottom": {
-                  "position": "bottom",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "left": {
-                  "position": "left",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                }
-              },
-              "items": [
-                {
-                  "group": "top",
-                  "id": "9b869ddd-5959-4090-a448-7580e1722d61"
-                },
-                {
-                  "group": "right",
-                  "id": "47e62b74-8963-4f90-903f-8e7d41d977ce"
-                },
-                {
-                  "group": "bottom",
-                  "id": "d9d6da18-e71e-49e6-bc46-beb0001bb5ae"
-                },
-                {
-                  "group": "left",
-                  "id": "0aee5054-aef3-465e-ab88-8949a0d0501d"
-                }
-              ]
-            },
-            "id": "42c48da5-9be2-4ea6-86bb-f93132b6d3c9",
-            "data": {
-              "type": "tm.Actor",
-              "name": "External Services\n",
-              "description": "",
-              "isTrustBoundary": false,
-              "outOfScope": false,
-              "reasonOutOfScope": "",
-              "hasOpenThreats": true,
-              "providesAuthentication": false,
-              "threats": [
-                {
-                  "id": "b77557cb-7f8d-4167-9e1e-e53ec3446edd",
-                  "title": "External services cannot distinguish automation from user",
-                  "status": "Open",
-                  "severity": "High",
-                  "type": "Spoofing",
-                  "description": "External services receive API calls made under the user's delegated identity. As a result, they cannot distinguish between direct user actions and actions performed by Open Claw.",
-                  "mitigation": "Use a distinct automation identity when interacting with external services and include contextual metadata to differentiate between user-initiated and automated actions.",
-                  "modelType": "STRIDE",
-                  "new": false,
-                  "number": 11,
-                  "score": ""
-                },
-                {
-                  "id": "f0abcbf1-f98c-48c1-8491-8fbe39c0f45d",
-                  "title": "Delegated access exposes data beyond intended scope",
-                  "status": "Open",
-                  "severity": "High",
-                  "type": "Spoofing",
-                  "description": "Open Claw operates using delegated user authority and may access data or perform actions that exceed the intended scope of the automation task. External services will process these requests as valid, potentially exposing sensitive data unnecessarily.",
-                  "mitigation": "Apply least-privilege access controls to all delegated permissions and restrict automation to only the specific resources and actions required for its functions.",
-                  "modelType": "STRIDE",
-                  "new": false,
-                  "number": 12,
-                  "score": ""
-                }
-              ],
-              "threatFrequency": {
-                "spoofing": 2,
-                "repudiation": 0
-              }
-            }
-          },
-          {
-            "position": {
               "x": 433.75,
               "y": -4850
             },
@@ -435,12 +287,12 @@
                   "title": "Overly-broad delegated authority",
                   "status": "Open",
                   "severity": "Critical",
-                  "type": "Elevation of privilege",
+                  "type": "Elevation of Privilege",
                   "description": "The authorization process grants Open Claw authority derived from the user identity without separation or any kind of boundary enforcement.  As a result, the automation may inherit the full set of user privileges rather than only what is required to complete a task.",
                   "mitigation": "Introduce a distinct automation identity with scoped permissions. Replace broad delegation with short-lived, task-specific access controls aligned with least privilege.",
                   "modelType": "STRIDE",
                   "new": false,
-                  "number": 3,
+                  "number": 1,
                   "score": ""
                 },
                 {
@@ -453,7 +305,7 @@
                   "mitigation": "Log delegation events with clear identifiers and correlate them with all previous automation actions using traceable context such as request IDs or session metadata.",
                   "modelType": "STRIDE",
                   "new": false,
-                  "number": 4,
+                  "number": 2,
                   "score": ""
                 }
               ],
@@ -592,7 +444,7 @@
                   "mitigation": "Execute automation under a distinct identity or role separate from the user. Ensure that all automatic actions preserve both the originating user context and the automation identity for clear attribution.",
                   "modelType": "STRIDE",
                   "new": false,
-                  "number": 7,
+                  "number": 3,
                   "score": ""
                 },
                 {
@@ -605,12 +457,12 @@
                   "mitigation": "Limit delegated permissions to the minimum required for each task. Isolate the automation environment and restrict its ability to access sensitive operations beyond its intended scope.",
                   "modelType": "STRIDE",
                   "new": false,
-                  "number": 8,
+                  "number": 4,
                   "score": ""
                 }
               ],
               "threatFrequency": {
-                "spoofing": 3,
+                "spoofing": 2,
                 "repudiation": 0
               }
             }
@@ -743,7 +595,7 @@
                   "mitigation": "Restrict access to the state store and enforce integrity controls such as validation, versioning, and audit  logging of all state changes.",
                   "modelType": "STRIDE",
                   "new": false,
-                  "number": 9,
+                  "number": 5,
                   "score": ""
                 },
                 {
@@ -756,7 +608,7 @@
                   "mitigation": "Log all state changes with timestamps an link them to automation actions using correlation identifiers to support traceability and investigation.",
                   "modelType": "STRIDE",
                   "new": false,
-                  "number": 10,
+                  "number": 6,
                   "score": ""
                 }
               ],
@@ -772,6 +624,334 @@
             "children": [
               "c2241672-b668-4a06-a4ba-297a2560f137"
             ]
+          },
+          {
+            "position": {
+              "x": 710,
+              "y": -4970
+            },
+            "size": {
+              "width": 140,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "External Services"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 3,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "9b869ddd-5959-4090-a448-7580e1722d61"
+                },
+                {
+                  "group": "right",
+                  "id": "47e62b74-8963-4f90-903f-8e7d41d977ce"
+                },
+                {
+                  "group": "bottom",
+                  "id": "d9d6da18-e71e-49e6-bc46-beb0001bb5ae"
+                },
+                {
+                  "group": "left",
+                  "id": "0aee5054-aef3-465e-ab88-8949a0d0501d"
+                }
+              ]
+            },
+            "id": "42c48da5-9be2-4ea6-86bb-f93132b6d3c9",
+            "data": {
+              "type": "tm.Actor",
+              "name": "External Services\n",
+              "description": "",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "b77557cb-7f8d-4167-9e1e-e53ec3446edd",
+                  "title": "External services cannot distinguish automation from user",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "External services receive API calls made under the user's delegated identity. As a result, they cannot distinguish between direct user actions and actions performed by Open Claw.",
+                  "mitigation": "Use a distinct automation identity when interacting with external services and include contextual metadata to differentiate between user-initiated and automated actions.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 7,
+                  "score": ""
+                },
+                {
+                  "id": "f0abcbf1-f98c-48c1-8491-8fbe39c0f45d",
+                  "title": "Delegated access exposes data beyond intended scope",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information Disclosure",
+                  "description": "Open Claw operates using delegated user authority and may access data or perform actions that exceed the intended scope of the automation task. External services will process these requests as valid, potentially exposing sensitive data unnecessarily.",
+                  "mitigation": "Apply least-privilege access controls to all delegated permissions and restrict automation to only the specific resources and actions required for its functions.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 8,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "repudiation": 0,
+                "informationDisclosure": 1
+              }
+            }
+          },
+          {
+            "position": {
+              "x": 545,
+              "y": -5165
+            },
+            "size": {
+              "width": 120,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Logging/Monitoring"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 13,
+            "ports": {
+              "groups": {
+                "top": {
+                  "position": "top",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "right": {
+                  "position": "right",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "bottom": {
+                  "position": "bottom",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                },
+                "left": {
+                  "position": "left",
+                  "attrs": {
+                    "circle": {
+                      "r": 4,
+                      "magnet": true,
+                      "stroke": "#5F95FF",
+                      "strokeWidth": 1,
+                      "fill": "#fff",
+                      "style": {
+                        "visibility": "hidden"
+                      }
+                    }
+                  }
+                }
+              },
+              "items": [
+                {
+                  "group": "top",
+                  "id": "6f4c2a47-0fd5-4af6-b3fe-26d219e6bd2c"
+                },
+                {
+                  "group": "right",
+                  "id": "ef5a0436-dec9-4b83-ae8a-499d1f9e702b"
+                },
+                {
+                  "group": "bottom",
+                  "id": "1d2045b6-8861-438f-af1b-ae9452008006"
+                },
+                {
+                  "group": "left",
+                  "id": "aeb56bf9-3b27-4656-bc2b-ff5a35b9ffdb"
+                }
+              ]
+            },
+            "id": "53dced5a-2926-4e3d-9eba-8c9a78a86bbf",
+            "data": {
+              "type": "tm.Store",
+              "name": "Logging/Monitoring\n",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "8751ed4b-8e20-48b0-b1d2-79685f4dc0ed",
+                  "title": "Logs misattribute automated actions to the user",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Repudiation",
+                  "description": "Logging and monitoring systems primarily observe activity at the detection surface and record actions under the user's identity. As a result, automated actions performed by Open Claw are indistinguishable from direct user activity in logs.",
+                  "mitigation": "Capture and log both the originating user context and the automation identity. Include correlation identifiers to link delegation events, automation execution, and external service actions.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 9,
+                  "score": ""
+                },
+                {
+                  "id": "a9da2a43-9a1b-42f3-8213-030affef1d23",
+                  "title": "Automation activity lacks sufficient visibility for detection",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Repudiation",
+                  "description": "Internal automation activity, including execution flow and state interactions, is not fully visible  to monitoring systems. This reduces the ability to detect anomalous or malicious behavior originating from Open Claw in a timely manner.",
+                  "mitigation": "Extend monitoring to include detailed automation telemetry, including execution steps, state changes, and interaction with externa services. Correlate this data with user and delegation context.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 10,
+                  "score": ""
+                },
+                {
+                  "id": "2372bd36-e305-4963-b311-582a4b676e51",
+                  "title": "Shared identity model causes denial of service during incident containment.",
+                  "status": "Open",
+                  "severity": "Critical",
+                  "type": "Denial of service",
+                  "description": "When anomalous activity is detected and incident response actions are taken, containment requires disabling or restricting the compromised identity. Because Open Claw and the user share the same identity, this action removes access for both the automation and the human user. As a result, the legitimate user is denied access to their own environment during investigation and remediation.",
+                  "mitigation": "Separate automation and human identities to allow independent containment actions. Ensure that incident response can isolate automation without impacting the user's access to critical systems.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 11,
+                  "score": ""
+                }
+              ],
+              "threatFrequency": {
+                "tampering": 0,
+                "repudiation": 2,
+                "informationDisclosure": 0,
+                "denialOfService": 1
+              }
+            },
+            "tools": {
+              "items": [
+                "boundary",
+                "button-remove"
+              ],
+              "name": null
+            }
           },
           {
             "shape": "flow",
@@ -957,7 +1137,7 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "There is no \nboundary separating automation from \n\nuser acction",
+              "name": "There is no \nboundary separating automation from \nuser action",
               "description": "",
               "outOfScope": false,
               "isTrustBoundary": false,
@@ -971,7 +1151,7 @@
               "trustBoundaryIds": []
             },
             "labels": [
-              "There is no \nboundary separating automation from \nuser acction"
+              "There is no \nboundary separating automation from \nuser action"
             ],
             "id": "53a8972b-46e9-46f7-b742-ba2d50109df5",
             "source": {
@@ -1097,185 +1277,6 @@
           },
           {
             "position": {
-              "x": 545,
-              "y": -5165
-            },
-            "size": {
-              "width": 120,
-              "height": 60
-            },
-            "attrs": {
-              "text": {
-                "text": "Logging/Monitoring"
-              },
-              "topLine": {
-                "stroke": "red",
-                "strokeWidth": 2.5,
-                "strokeDasharray": null
-              },
-              "bottomLine": {
-                "stroke": "red",
-                "strokeWidth": 2.5,
-                "strokeDasharray": null
-              }
-            },
-            "visible": true,
-            "shape": "store",
-            "zIndex": 13,
-            "ports": {
-              "groups": {
-                "top": {
-                  "position": "top",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "right": {
-                  "position": "right",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "bottom": {
-                  "position": "bottom",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "left": {
-                  "position": "left",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                }
-              },
-              "items": [
-                {
-                  "group": "top",
-                  "id": "6f4c2a47-0fd5-4af6-b3fe-26d219e6bd2c"
-                },
-                {
-                  "group": "right",
-                  "id": "ef5a0436-dec9-4b83-ae8a-499d1f9e702b"
-                },
-                {
-                  "group": "bottom",
-                  "id": "1d2045b6-8861-438f-af1b-ae9452008006"
-                },
-                {
-                  "group": "left",
-                  "id": "aeb56bf9-3b27-4656-bc2b-ff5a35b9ffdb"
-                }
-              ]
-            },
-            "id": "53dced5a-2926-4e3d-9eba-8c9a78a86bbf",
-            "data": {
-              "type": "tm.Store",
-              "name": "Logging/Monitoring\n",
-              "description": "",
-              "outOfScope": false,
-              "isTrustBoundary": false,
-              "reasonOutOfScope": "",
-              "hasOpenThreats": true,
-              "isALog": false,
-              "isEncrypted": false,
-              "isSigned": false,
-              "storesCredentials": false,
-              "storesInventory": false,
-              "threats": [
-                {
-                  "id": "8751ed4b-8e20-48b0-b1d2-79685f4dc0ed",
-                  "title": "Logs misattribute automated actions to the user",
-                  "status": "Open",
-                  "severity": "Critical",
-                  "type": "Repudiation",
-                  "description": "Logging and monitoring systems primarily observe activity at the detection surface and record actions under the user's identity. As a result, automated actions performed by Open Claw are indistinguishable from direct user activity in logs.",
-                  "mitigation": "Capture and log both the originating user context and the automation identity. Include correlation identifiers to link delegation events, automation execution, and external service actions.",
-                  "modelType": "STRIDE",
-                  "new": false,
-                  "number": 13,
-                  "score": ""
-                },
-                {
-                  "id": "a9da2a43-9a1b-42f3-8213-030affef1d23",
-                  "title": "Automation activity lacks sufficient visibility for detection",
-                  "status": "Open",
-                  "severity": "High",
-                  "type": "Repudiation",
-                  "description": "Internal automation activity, including execution flow and state interactions, is not fully visible  to monitoring systems. This reduces the ability to detect anomalous or malicious behavior originating from Open Claw in a timely manner.",
-                  "mitigation": "Extend monitoring to include detailed automation telemetry, including execution steps, state changes, and interaction with externa services. Correlate this data with user and delegation context.",
-                  "modelType": "STRIDE",
-                  "new": false,
-                  "number": 14,
-                  "score": ""
-                },
-                {
-                  "id": "2372bd36-e305-4963-b311-582a4b676e51",
-                  "title": "Shared identity model causes denial of service during incident containment.",
-                  "status": "Open",
-                  "severity": "Critical",
-                  "type": "Denial of service",
-                  "description": "When anomalous activity is detected and incident response actions are taken, containment requires disabling or restricting the compromised identity. Because Open Claw and the user share the same identity, this action removes access for both the automation and the human user. As a result, the legitimate user is denied access to their own environment during investigation and remediation.",
-                  "mitigation": "Separate automation and human identities to allow independent containment actions. Ensure that incident response can isolate automation without impacting the user's access to critical systems.",
-                  "modelType": "STRIDE",
-                  "new": false,
-                  "number": 15,
-                  "score": ""
-                }
-              ],
-              "threatFrequency": {
-                "tampering": 0,
-                "repudiation": 2,
-                "informationDisclosure": 0,
-                "denialOfService": 1
-              }
-            },
-            "tools": {
-              "items": [
-                "boundary",
-                "button-remove"
-              ],
-              "name": null
-            }
-          },
-          {
-            "position": {
               "x": 410,
               "y": -5050
             },
@@ -1327,6 +1328,6 @@
     ],
     "diagramTop": 4,
     "reviewer": "",
-    "threatTop": 15
+    "threatTop": 11
   }
 }
