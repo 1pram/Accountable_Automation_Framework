@@ -22,23 +22,17 @@ The rotation mechanism is noted as a commented placeholder in `secrets.tf`.
 
 ### 4. No Log File Validation
 
-CloudTrail log file validation — which produces a digest file allowing verification that no logs were modified or deleted after delivery — is disabled in this proof of concept.
+CloudTrail log file validation which produces a digest file allowing verification that no logs were modified or deleted after delivery is disabled in this proof of concept.
 
 This is a deliberate scope decision. Log file validation belongs in part two where the full non-repudiation story plays out with real agent activity and a complete audit trail lifecycle.
 
-### 5. No CloudWatch Behavioral Monitoring
-
-CloudTrail handles attribution in this proof of concept. CloudWatch behavioral monitoring — anomaly detection on denied actions, Secrets Manager access frequency alarms, and per-principal baseline deviation alerts — is deferred to part two.
-
-CloudWatch becomes meaningful when a live agent is generating continuous activity. Without it, there is no behavioral baseline to monitor against.
-
-### 6. Manual S3 Bucket Cleanup Before Destroy
+### 5. Manual S3 Bucket Cleanup Before Destroy
 
 Versioned S3 buckets require explicit version and delete marker deletion before `terraform destroy` succeeds. This is a deliberate trade-off between tamper-proof audit trail integrity during operation and teardown simplicity in a proof of concept environment.
 
 A lifecycle policy would automate this in production. See `troubleshooting.md` for the manual cleanup procedure.
 
-### 7. Single Region Deployment
+### 6. Single Region Deployment
 
 The current design deploys to a single AWS region. CloudTrail is configured as a multi-region trail to capture API calls regardless of region, but the infrastructure itself is region-specific.
 
@@ -48,4 +42,4 @@ Multi-region failover, cross-region replication, and data residency consideratio
 
 The architecture is designed around a Windows Server 2022 EC2 instance as the OpenClaw execution environment. This reflects the real-world deployment surface documented in the dual identity threat model.
 
-The identity and attribution mechanisms — IAM roles, instance profiles, CloudTrail, Secrets Manager — are platform-agnostic. The Windows-specific elements are the RDP access pattern, the PowerShell proof of concept scripts, and the EBS root volume requirement.
+The identity and attribution mechanisms: IAM roles, instance profiles, CloudTrail, Secrets Manager are platform-agnostic. The Windows-specific elements are the RDP access pattern, the PowerShell proof of concept scripts, and the EBS root volume requirement.
