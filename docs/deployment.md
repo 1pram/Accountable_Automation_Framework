@@ -291,7 +291,7 @@ Invoke-RestMethod -Uri http://169.254.169.254/latest/meta-data/instance-id
 
 SSH back into the bastion and run each query individually. CloudTrail has a delivery delay of approximately 5 to 15 minutes - if results are empty, wait and try again.
 
-List all ListUsers events grouped by principal - reveals that the same action was performed by two distinct identities:
+List all ListUsers events grouped by principal reveals that the same action was performed by two distinct identities:
 
 ```bash
 aws cloudtrail lookup-events \
@@ -300,7 +300,7 @@ aws cloudtrail lookup-events \
   --output table
 ```
 
-List all denied actions - reveals that the automation role's boundary held and the attempt was recorded:
+List all denied actions reveals that the automation role's boundary held and the attempt was recorded:
 
 ```bash
 aws cloudtrail lookup-events \
@@ -309,7 +309,7 @@ aws cloudtrail lookup-events \
   --output table
 ```
 
-List all activity attributed to the automation role - reveals the complete automation trail under a single named identity:
+List all activity attributed to the automation role reveals the complete automation trail under a single named identity:
 
 ```bash
 aws cloudtrail lookup-events \
@@ -318,7 +318,7 @@ aws cloudtrail lookup-events \
   --output table
 ```
 
-List all activity attributed to the human user - reveals the complete human trail under a separate named identity:
+List all activity attributed to the human user reveals the complete human trail under a separate named identity:
 
 ```bash
 aws cloudtrail lookup-events \
