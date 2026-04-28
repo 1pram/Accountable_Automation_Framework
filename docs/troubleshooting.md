@@ -63,11 +63,7 @@ Open `terraform.tfvars` and confirm your IP address is quoted as a string and in
 admin_ip = "203.0.113.1/32"
 ```
 
-Retrieve your current public IP from PowerShell:
-
-```powershell
-(Invoke-WebRequest -Uri "https://api.ipify.org").Content
-```
+Retrieve your current public IP by going to whatismyipaddress.com or api.ipify.org
 
 ## Key pair not found error during terraform apply
 
