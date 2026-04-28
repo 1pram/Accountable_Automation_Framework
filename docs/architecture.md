@@ -23,8 +23,8 @@ This project uses the following AWS services:
 
 The VPC uses a two-subnet model:
 
-- **Public subnet** — hosts the bastion host, reachable from the internet via the internet gateway
-- **Private subnet** — hosts the Windows workflow instance, no direct internet route
+- **Public subnet** Hosts the bastion host, reachable from the internet via the internet gateway
+- **Private subnet** Hosts the Windows workflow instance, no direct internet route
 
 The private subnet reaches AWS services exclusively through VPC endpoints. No NAT gateway. No public internet exposure.
 
@@ -34,17 +34,17 @@ The internet gateway serves one purpose, inbound SSH from the administrator's IP
 
 ### Security Groups
 
-- **Bastion SG** — allows SSH on port 22 from the administrator's IP only
-- **Windows SG** — allows RDP on port 3389 from the bastion security group only
-- **Endpoints SG** — allows HTTPS on port 443 from the private subnet CIDR only
+- **Bastion SG** Allows SSH on port 22 from the administrator's IP only
+- **Windows SG** Allows RDP on port 3389 from the bastion security group only
+- **Endpoints SG** Allows HTTPS on port 443 from the private subnet CIDR only
 
 ### VPC Endpoints
 
 Three endpoints eliminate the need for a NAT gateway:
 
-- **S3 Gateway endpoint** — free, routes all S3 traffic from the private subnet through the AWS network
-- **Secrets Manager interface endpoint** — private encrypted credential retrieval
-- **CloudTrail interface endpoint** — private audit trail delivery
+- **S3 Gateway endpoint** Free, routes all S3 traffic from the private subnet through the AWS network
+- **Secrets Manager interface endpoint** Private encrypted credential retrieval
+- **CloudTrail interface endpoint** Private audit trail delivery
 
 ### 3. Identity Model
 
