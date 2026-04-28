@@ -4,11 +4,11 @@ This guide walks through deploying the Accountable Automation Framework using Te
 
 ### 1. Tech Stack
 
-- **AWS** — cloud provider hosting all infrastructure components
-- **Terraform** — Infrastructure as Code tool used to define, plan, and deploy the entire environment
-- **VSCode** — code editor used to write and manage Terraform configuration files
-- **Draw.io** — used to design the infrastructure dataflow diagrams
-- **eraser.io** — used to generate the cloud architecture diagrams
+- **AWS** Cloud provider hosting all infrastructure components
+- **Terraform** Infrastructure as Code tool used to define, plan, and deploy the entire environment
+- **VSCode** Code editor used to write and manage Terraform configuration files
+- **Draw.io** Used to design the infrastructure dataflow diagrams
+- **eraser.io** Used to generate the cloud architecture diagrams
 
 ### 2. Prerequisites
 
