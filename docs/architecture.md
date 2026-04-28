@@ -67,7 +67,7 @@ This is the core of the framework. Two IAM principals are declared, scoped, and 
 
 ### Permissions Boundary
 
-The automation role carries a permissions boundary defining the absolute ceiling of what it can ever do — regardless of what policies are attached later. Explicit denies in the boundary override any attached policy. This makes least privilege durable, not just momentary.
+The automation role carries a permissions boundary defining the absolute ceiling of what it can ever do, regardless of what policies are attached later. Explicit denies in the boundary override any attached policy. This makes least privilege durable, not just momentary.
 
 ### CloudTrail Reader Role
 
@@ -84,7 +84,7 @@ This replaces the plaintext credential storage on an unmanaged EBS volume that t
 
 ### 5. Audit Trail
 
-CloudTrail is configured as a multi-region trail logging all management events. It captures IAM AssumeRole calls through `include_global_service_events = true` — meaning the moment the automation role is assumed by the EC2 instance is itself a logged event.
+CloudTrail is configured as a multi-region trail logging all management events. It captures IAM AssumeRole calls through `include_global_service_events = true`  meaning the moment the automation role is assumed by the EC2 instance is itself a logged event.
 
 The logs bucket is governed by a bucket policy that permits only the CloudTrail service to write. Neither the human user nor the automation role can modify or disable the trail. Log file validation is deferred to part two.
 
@@ -92,9 +92,9 @@ The logs bucket is governed by a bucket policy that permits only the CloudTrail 
 
 Every action produces a CloudTrail entry attributed to a specific principal:
 
-- Human user actions — logged under `aaf-human-user`
-- Automation role actions — logged under `AutomationRole`
-- CloudTrail reader queries — logged under `BastionCloudTrailReaderRole`
+- Human user actions are logged under `aaf-human-user`
+- Automation role actions are logged under `AutomationRole`
+- CloudTrail reader queries are logged under `BastionCloudTrailReaderRole`
 
 Same instance. Same IP. Three distinct identities in the log. The audit trail knows the difference.
 
