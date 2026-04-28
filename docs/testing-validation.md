@@ -4,7 +4,7 @@ This guide validates every security control in the Accountable Automation Framew
 
 All tests are designed to be repeatable and portable, proving that the identity layer makes actions attributable by design.
 
-## 1. Prerequisites
+### 1. Prerequisites
 
 Before running tests:
 
@@ -50,7 +50,7 @@ Expected — human user identity:
 }
 ```
 
-## 2. Test 1 — Identity Separation (ListUsers)
+### 2. Test 1 — Identity Separation (ListUsers)
 
 The goal is to confirm that the same action performed by two principals produces two distinct CloudTrail entries.
 
@@ -88,7 +88,7 @@ Expected output — same action, two identities:
 
 This is the receipt. Two principals. Zero ambiguity.
 
-## 3. Test 2 — Least Privilege Enforcement (Denied Actions)
+### 3. Test 2 — Least Privilege Enforcement (Denied Actions)
 
 The goal is to confirm the automation role cannot exceed its scoped permissions.
 
@@ -140,7 +140,7 @@ Expected — denied action logged under automation role identity:
 
 The boundary held. The attempt is recorded.
 
-## 4. Test 3 — Secrets Manager Credential Retrieval
+### 4. Test 3 — Secrets Manager Credential Retrieval
 
 The goal is to confirm the automation role can retrieve credentials from Secrets Manager and that the retrieval is logged.
 
@@ -170,7 +170,7 @@ aws cloudtrail lookup-events \
 
 Expected — retrieval logged under automation role identity with secret ARN in request parameters.
 
-## 5. Test 4 — S3 Prefix Enforcement
+### 5. Test 4 — S3 Prefix Enforcement
 
 The goal is to confirm each principal is scoped to its designated prefix and cannot access the other's lane.
 
@@ -204,7 +204,7 @@ aws s3 cp C:\workflow\human\test.txt s3://YOUR_WORKFLOW_BUCKET/human/ --profile 
 
 Expected: upload succeeds.
 
-## 6. Test 5 — Human User Instance Reboot
+### 6. Test 5 — Human User Instance Reboot
 
 The goal is to confirm the human user can reboot the workflow instance and that the action is logged under the human user identity.
 
@@ -215,7 +215,7 @@ aws ec2 reboot-instances --instance-ids $instanceId --profile human-user
 
 Expected: reboot initiates. Query CloudTrail to confirm the action is logged under `aaf-human-user`.
 
-## 7. Test 6 — Tamper-Proof Audit Trail
+### 7. Test 6 — Tamper-Proof Audit Trail
 
 The goal is to confirm neither principal can modify or disable the audit trail.
 
@@ -236,7 +236,7 @@ aws s3 cp C:\test.txt s3://YOUR_CLOUDTRAIL_BUCKET/ --profile human-user
 
 Expected: AccessDenied. The bucket policy permits only the CloudTrail service to write.
 
-## 8. Test 7 — Full Attribution Query
+### 8. Test 7 — Full Attribution Query
 
 The goal is to retrieve the complete audit trail for both principals from the bastion host. SSH into the bastion and run each query individually. Wait 5 to 15 minutes after running the proof of concept actions before querying — CloudTrail has a delivery delay.
 
@@ -278,7 +278,7 @@ aws cloudtrail lookup-events \
 
 This is your complete receipt. Two principals. Every action attributed. Zero ambiguity.
 
-## 9. Summary Checklist
+### 9. Summary Checklist
 
 You should now be able to check off:
 
