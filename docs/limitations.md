@@ -12,7 +12,7 @@ In a live deployment, the agent would assume the automation role directly throug
 
 The human IAM user's access key is stored in the AWS CLI credentials file on the Windows instance for demonstration purposes. This is a known trade-off for the proof of concept.
 
-In production, short-term credentials through AWS IAM Identity Center would replace long-term access keys entirely. The named profile pattern would remain — only the credential source changes.
+In production, short-term credentials through AWS IAM Identity Center would replace long-term access keys entirely. The named profile pattern would remain. Only the credential source changes, in this scenario.
 
 ### 3. No Secret Rotation
 
