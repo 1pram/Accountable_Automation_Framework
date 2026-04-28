@@ -2,7 +2,7 @@
 
 A few issues you might run into while deploying or tearing down the Accountable Automation Framework and how to fix them.
 
-## Terraform destroy fails because S3 bucket is not empty
+### Terraform destroy fails because S3 bucket is not empty
 
 You may see an error similar to:
 
@@ -32,7 +32,7 @@ aws s3api delete-object --bucket YOUR_BUCKET_NAME --key "EXACT_KEY" --version-id
 
 Repeat for each version and delete marker until `list-object-versions` returns empty. Then retry `terraform destroy`.
 
-## Suppressing variable prompts for repeated deployments
+### Suppressing variable prompts for repeated deployments
 
 By design, the Accountable Automation Framework prompts for variable input at each `terraform plan` and `terraform apply`. This is intentional — the prompt sequence is a mindfulness trigger requiring conscious confirmation of each value before infrastructure changes are applied.
 
@@ -49,7 +49,7 @@ ai_service_api_key     = "your-api-key-value"
 
 Terraform will read this file automatically and skip the prompts. Do not commit `terraform.tfvars` to version control — it is listed in `.gitignore` by default.
 
-## Invalid CIDR block error for admin_ip
+### Invalid CIDR block error for admin_ip
 
 You may see:
 
@@ -65,7 +65,7 @@ admin_ip = "203.0.113.1/32"
 
 Retrieve your current public IP by going to whatismyipaddress.com or api.ipify.org
 
-## Key pair not found error during terraform apply
+### Key pair not found error during terraform apply
 
 You may see:
 
@@ -85,13 +85,13 @@ Not:
 key_pair_name = "bastion-key-2.pem"
 ```
 
-## Windows Administrator password not available immediately
+### Windows Administrator password not available immediately
 
 After `terraform apply` completes, the Windows instance needs 5 to 10 minutes to finish initialization before the Administrator password is available in the AWS console.
 
 If you see an error retrieving the password, wait a few minutes and try again.
 
-## CloudTrail lookup returns no results immediately after running scripts
+### CloudTrail lookup returns no results immediately after running scripts
 
 CloudTrail has a delivery delay of approximately 5 to 15 minutes before events appear in lookup queries. If your `query-cloudtrail.sh` script returns empty tables immediately after running the proof of concept scripts, wait a few minutes and run it again.
 
@@ -109,7 +109,7 @@ Select-String -Path "*.tf" -Pattern "resource.*aws_security_group"
 
 Identify which file contains the duplicate and remove it. Each security group resource name must appear exactly once across all `.tf` files in the directory.
 
-## S3 bucket name already exists
+### S3 bucket name already exists
 
 S3 bucket names are globally unique across all AWS accounts. If your chosen bucket name is already taken you will see a bucket creation error.
 
