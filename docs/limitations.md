@@ -38,7 +38,7 @@ The current design deploys to a single AWS region. CloudTrail is configured as a
 
 Multi-region failover, cross-region replication, and data residency considerations are out of scope for this project.
 
-### 8. Windows-Specific Architecture
+### 7. Windows-Specific Architecture
 
 The architecture is designed around a Windows Server 2022 EC2 instance as the OpenClaw execution environment. This reflects the real-world deployment surface documented in the dual identity threat model.
 
