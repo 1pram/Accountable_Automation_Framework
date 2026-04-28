@@ -179,7 +179,7 @@ In the AWS console:
 
 1. Go to EC2 - Instances
 2. Select the `aaf-windows` instance
-3. Actions - Security - Get Windows Password
+3. Actions -> Security -> Get Windows Password
 4. Upload your `.pem` file
 5. Copy the decrypted password
 
