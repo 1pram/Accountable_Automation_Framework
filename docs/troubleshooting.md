@@ -73,7 +73,7 @@ You may see:
 
 ### Fix
 
-Confirm the key pair exists in your AWS console under EC2 — Key Pairs in the same region you are deploying to. The name in `terraform.tfvars` must match exactly, no `.pem` extension, case sensitive.
+Confirm the key pair exists in your AWS console under EC2 Key Pairs in the same region you are deploying to. The name in `terraform.tfvars` must match exactly, no `.pem` extension, case sensitive.
 
 ```hcl
 key_pair_name = "bastion-key-2"
@@ -97,7 +97,7 @@ CloudTrail has a delivery delay of approximately 5 to 15 minutes before events a
 
 ## Security group duplicate resource error during terraform validate
 
-If you see a duplicate resource error for a security group, you may have conflicting `.tf` files in your directory — for example, a `network.tf` from a previous iteration alongside the current `main.tf`.
+If you see a duplicate resource error for a security group, you may have conflicting `.tf` files in your directory. For example, a `network.tf` from a previous iteration alongside the current `main.tf`.
 
 ### Fix
 
