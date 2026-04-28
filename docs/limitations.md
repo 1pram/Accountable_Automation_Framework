@@ -6,7 +6,7 @@ The Accountable Automation Framework is a focused identity and observability pro
 
 The proof of concept simulates automation activity through CLI scripts rather than a running OpenClaw agent. The automation role is assumed by the EC2 instance profile and invoked manually through PowerShell scripts.
 
-In a live deployment, the agent would assume the automation role directly through the same instance profile mechanism. The attribution architecture is identical in both cases — the CloudTrail output does not change based on whether a human or an agent triggers the role assumption. Part two addresses the live agent deployment.
+In a live deployment, the agent would assume the automation role directly through the same instance profile mechanism. The attribution architecture is identical in both cases. The CloudTrail output does not change based on whether a human or an agent triggers the role assumption. Part two addresses the live agent deployment.
 
 ### 2. Long-Term Human User Credentials on the Instance
 
