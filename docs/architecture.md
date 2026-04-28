@@ -9,13 +9,13 @@ This project uses the following AWS services:
 **Amazon VPC**: Network boundary housing public and private subnets with controlled ingress
 **Amazon EC2 (Bastion Host)**: Single controlled entry point into the private subnet via SSH
 **Amazon EC2 (Workflow Host)**: Windows Server 2022 instance carrying the automation role via instance profile
-**Amazon EBS**: Root volume for the Windows instance — operating system only, not credential storage
-**AWS IAM**: Three scoped principals — human user, automation role with permissions boundary, CloudTrail reader role
-**AWS Secrets Manager**: Encrypted credential storage for the automation role — replaces plaintext EBS storage
+**Amazon EBS**: Root volume for the Windows instance, operating system only, not for credential storage
+**AWS IAM**: Three scoped principals, human user, automation role with permissions boundary, CloudTrail reader role
+**AWS Secrets Manager**: Encrypted credential storage for the automation role. It replaces plaintext EBS storage
 **AWS CloudTrail**: Multi-region audit trail logging all management events and attributing them to specific principals
-**Amazon S3 (CloudTrail logs bucket)**: Tamper-proof log storage — CloudTrail service access only
-**Amazon S3 (Workflow bucket)**: Shared storage scoped by prefix — human/ for the human user, automation/ for the automation role
-**VPC Endpoints**: S3 Gateway endpoint, Secrets Manager interface endpoint, CloudTrail interface endpoint — private subnet never touches the public internet
+**Amazon S3 (CloudTrail logs bucket)**: Tamper-proof log storage, used for CloudTrail service access only
+**Amazon S3 (Workflow bucket)**: Shared storage scoped by prefix, human/ for the human user, automation/ for the automation role
+**VPC Endpoints**: S3 Gateway endpoint, Secrets Manager interface endpoint, CloudTrail interface endpoint. The private subnet never touches the public internet
 
 ### 2. Network Design
 
