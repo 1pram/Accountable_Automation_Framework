@@ -5,17 +5,17 @@ variable "aws_region" {
 }
 
 variable "admin_ip" {
-  description = "Your public IPv4 in CIDR form for SSH to bastion (e.g., 203.0.110.25/32)"
+  description = "Your public IPv4 in CIDR form for SSH to bastion (e.g., 203.0.113.25/32)"
   type        = string
 }
 
 variable "key_pair_name" {
-  description = "Existing EC2 key pair name to use for SSH access to bastion"
+  description = "Existing EC2 key pair name to use for bastion SSH access"
   type        = string
 }
 
 variable "cloudtrail_bucket_name" {
-  description = "CloudTrail logs S3 bucket name (must be globally unique)"
+  description = "CloudTrail logs S3 bucket name (must be globally unique — append your account ID or initials)"
   type        = string
 }
 
@@ -25,7 +25,7 @@ variable "workflow_bucket_name" {
 }
 
 variable "ai_service_api_key" {
-  description = "Mock AI service API key stored in Secrets Manager. It replaces plaintext EBS credential storage"
+  description = "AI service API key stored in Secrets Manager — replaces plaintext EBS credential storage"
   type        = string
   sensitive   = true
 }
