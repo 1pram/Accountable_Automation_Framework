@@ -2,7 +2,7 @@
 
 This guide walks through deploying the Accountable Automation Framework using Terraform. The build includes a VPC, two EC2 instances, three IAM principals, two S3 buckets, AWS Secrets Manager, CloudTrail, and three VPC endpoints.
 
-## 1. Tech Stack
+### 1. Tech Stack
 
 - **AWS** — cloud provider hosting all infrastructure components
 - **Terraform** — Infrastructure as Code tool used to define, plan, and deploy the entire environment
@@ -10,7 +10,7 @@ This guide walks through deploying the Accountable Automation Framework using Te
 - **Draw.io** — used to design the infrastructure dataflow diagrams
 - **eraser.io** — used to generate the cloud architecture diagrams
 
-## 2. Prerequisites
+### 2. Prerequisites
 
 - Terraform v1.5+
 - AWS CLI v2
@@ -36,7 +36,7 @@ git clone https://github.com/<your-repo>/accountable-automation-framework.git
 cd accountable-automation-framework
 ```
 
-## 3. Project Structure
+### 3. Project Structure
 
 ```
 Accountable_Automation_Framework/
@@ -72,7 +72,7 @@ Accountable_Automation_Framework/
 |   |-- identity-observability-diagram.png
 ```
 
-## 4. Initialize Terraform
+### 4. Initialize Terraform
 
 ```bash
 terraform init
@@ -86,7 +86,7 @@ Terraform has been successfully initialized!
 
 If a provider version mismatch occurs, update your lock file or Terraform version accordingly.
 
-## 5. Validate and Plan
+### 5. Validate and Plan
 
 ### Validate syntax:
 
@@ -144,7 +144,7 @@ Look for approximately:
 Plan: 24 to add, 0 to change, 0 to destroy.
 ```
 
-## 6. Apply the Infrastructure
+### 6. Apply the Infrastructure
 
 ```bash
 terraform apply
@@ -171,7 +171,7 @@ terraform output bastion_public_ip
 terraform output windows_private_ip
 ```
 
-## 7. Retrieve the Windows Administrator Password
+### 7. Retrieve the Windows Administrator Password
 
 The Windows instance generates a random Administrator password encrypted with your key pair.
 
@@ -185,13 +185,13 @@ In the AWS console:
 
 Wait 5 to 10 minutes after the instance launches before attempting to retrieve the password - the instance needs time to complete initialization.
 
-## 8. SSH into the Bastion Host
+### 8. SSH into the Bastion Host
 
 ```bash
 ssh -i your-key.pem ec2-user@YOUR_BASTION_PUBLIC_IP
 ```
 
-## 9. RDP into the Windows Instance from the Bastion
+### 9. RDP into the Windows Instance from the Bastion
 
 From the bastion:
 
@@ -201,7 +201,7 @@ xfreerdp /u:Administrator /v:YOUR_WINDOWS_PRIVATE_IP /port:3389
 
 Enter the Administrator password retrieved in step 7 when prompted.
 
-## 10. Configure the Human User Profile on the Windows Instance
+### 10. Configure the Human User Profile on the Windows Instance
 
 Once inside the Windows instance, open PowerShell and run:
 
@@ -218,7 +218,7 @@ Default region name:   us-east-1
 Default output format: json
 ```
 
-## 11. Automation Role Actions
+### 11. Automation Role Actions
 
 The instance carries the automation role by default via the instance profile. No profile flag is needed. Run each command from PowerShell.
 
@@ -261,7 +261,7 @@ Your volume ID can be retrieved from the terminal:
 aws ec2 describe-volumes --query 'Volumes[0].VolumeId' --output text
 ```
 
-## 12. Human User Actions
+### 12. Human User Actions
 
 The human user profile must be invoked explicitly. Add `--profile human-user` to each command.
 
@@ -290,7 +290,7 @@ Your instance ID can be retrieved from the instance metadata endpoint:
 Invoke-RestMethod -Uri http://169.254.169.254/latest/meta-data/instance-id
 ```
 
-## 13. Query CloudTrail from the Bastion
+### 13. Query CloudTrail from the Bastion
 
 SSH back into the bastion and run each query individually. CloudTrail has a delivery delay of approximately 5 to 15 minutes - if results are empty, wait and try again.
 
@@ -332,7 +332,7 @@ aws cloudtrail lookup-events \
 
 See `testing-validation.md` for expected outputs and the full validation workflow.
 
-## 14. Cleanup
+### 14. Cleanup
 
 When done, empty the versioned S3 buckets before destroying. List object versions first:
 
