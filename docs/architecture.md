@@ -2,7 +2,7 @@
 
 The Accountable Automation Framework is an identity-first infrastructure that separates human authority from delegated automation. It extends the Secure Cloud Network project by adding an identity layer on top of an existing least privilege foundation.
 
-## 1. Service Inventory
+### 1. Service Inventory
 
 This project uses the following AWS services:
 
@@ -17,7 +17,7 @@ This project uses the following AWS services:
 **Amazon S3 (Workflow bucket)**: Shared storage scoped by prefix — human/ for the human user, automation/ for the automation role
 **VPC Endpoints**: S3 Gateway endpoint, Secrets Manager interface endpoint, CloudTrail interface endpoint — private subnet never touches the public internet
 
-## 2. Network Design
+### 2. Network Design
 
 ### VPC and Subnets
 
@@ -46,7 +46,7 @@ Three endpoints eliminate the need for a NAT gateway:
 - **Secrets Manager interface endpoint** — private encrypted credential retrieval
 - **CloudTrail interface endpoint** — private audit trail delivery
 
-## 3. Identity Model
+### 3. Identity Model
 
 This is the core of the framework. Two IAM principals are declared, scoped, and kept separate.
 
@@ -76,19 +76,19 @@ The automation role carries a permissions boundary defining the absolute ceiling
 - Cannot modify the trail or write to the logs bucket
 - Used to query attribution evidence from the bastion
 
-## 4. Credential Storage
+### 4. Credential Storage
 
 The automation role retrieves its AI service API key from AWS Secrets Manager through the Secrets Manager VPC endpoint. The key is stored encrypted. Every retrieval is logged by CloudTrail under the automation role identity with the exact secret ARN.
 
 This replaces the plaintext credential storage on an unmanaged EBS volume that the dual identity threat model identified as an information disclosure vulnerability.
 
-## 5. Audit Trail
+### 5. Audit Trail
 
 CloudTrail is configured as a multi-region trail logging all management events. It captures IAM AssumeRole calls through `include_global_service_events = true` — meaning the moment the automation role is assumed by the EC2 instance is itself a logged event.
 
 The logs bucket is governed by a bucket policy that permits only the CloudTrail service to write. Neither the human user nor the automation role can modify or disable the trail. Log file validation is deferred to part two.
 
-## 6. Attribution Model
+### 6. Attribution Model
 
 Every action produces a CloudTrail entry attributed to a specific principal:
 
@@ -98,7 +98,7 @@ Every action produces a CloudTrail entry attributed to a specific principal:
 
 Same instance. Same IP. Three distinct identities in the log. The audit trail knows the difference.
 
-## 7. Design Decisions and Trade-offs
+### 7. Design Decisions and Trade-offs
 
 **NAT gateway replaced by VPC endpoints** — keeps the private subnet fully isolated from the public internet while maintaining full AWS service connectivity. Interface endpoints carry a small hourly cost; the S3 Gateway endpoint is free.
 
@@ -114,7 +114,7 @@ Same instance. Same IP. Three distinct identities in the log. The audit trail kn
 
 **CloudWatch deferred to part two** — CloudTrail handles attribution in this proof of concept. CloudWatch behavioral monitoring, anomaly detection on denied actions, and Secrets Manager access frequency alarms belong in part two alongside the live agent.
 
-## 8. Summary
+### 8. Summary
 
 `architecture.md` captures:
 
