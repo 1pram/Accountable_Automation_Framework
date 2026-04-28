@@ -100,19 +100,26 @@ Same instance. Same IP. Three distinct identities in the log. The audit trail kn
 
 ### 7. Design Decisions and Trade-offs
 
-**NAT gateway replaced by VPC endpoints** — keeps the private subnet fully isolated from the public internet while maintaining full AWS service connectivity. Interface endpoints carry a small hourly cost; the S3 Gateway endpoint is free.
+**NAT gateway replaced by VPC endpoints** 
+Keeps the private subnet fully isolated from the public internet while maintaining full AWS service connectivity. Interface endpoints carry a small hourly cost; the S3 Gateway endpoint is free.
 
-**EBS scoped to OS only** — EBS remains as the Windows root volume because Windows EC2 instances boot from EBS. Credential storage moved to Secrets Manager. The EBS volume tag `Purpose: OperatingSystemOnly` makes this boundary visible in the infrastructure.
+**EBS scoped to OS only** 
+EBS remains as the Windows root volume because Windows EC2 instances boot from EBS. Credential storage moved to Secrets Manager. The EBS volume tag `Purpose: OperatingSystemOnly` makes this boundary visible in the infrastructure.
 
-**Lambda excluded** — Lambda was considered for the automation execution environment but ruled out. OpenClaw's persistent nature requires stateful execution across workflows. Lambda's stateless, ephemeral design would produce the equivalent of short and long-term memory loss for the agent.
+**Lambda excluded** 
+Lambda was considered for the automation execution environment but ruled out. OpenClaw's persistent nature requires stateful execution across workflows. Lambda's stateless, ephemeral design would produce the equivalent of short and long-term memory loss for the agent.
 
-**Human user credentials on the instance** — the human IAM user's access key is stored in the AWS CLI credentials file on the Windows instance. This is a deliberate design choice — configuring the profile manually is itself a mindfulness trigger, requiring a conscious act to invoke the human identity rather than inheriting it by default. In production, short-term credentials through AWS IAM Identity Center would replace long-term access keys entirely. The named profile pattern would remain — only the credential source changes.
+**Human user credentials on the instance** 
+The human IAM user's access key is stored in the AWS CLI credentials file on the Windows instance. This is a deliberate design choice. Configuring the profile manually is itself a mindfulness trigger, requiring a conscious act to invoke the human identity rather than inheriting it by default. In production, short-term credentials through AWS IAM Identity Center would replace long-term access keys entirely. The named profile pattern would remain, only the credential source changes.
 
-**Versioned S3 buckets require manual cleanup before destroy** — versioning protects the audit trail during operation but requires explicit version deletion before `terraform destroy`. A lifecycle policy would automate this in production.
+**Versioned S3 buckets require manual cleanup before destroy**
+Versioning protects the audit trail during operation but requires explicit version deletion before `terraform destroy`. A lifecycle policy would automate this in production.
 
-**Log file validation deferred to part two** — full non-repudiation validation belongs in the live agent demo where real agent activity generates the complete audit trail.
+**Log file validation deferred to part two** 
+Full non-repudiation validation belongs in the live agent demo where real agent activity generates the complete audit trail.
 
-**CloudWatch deferred to part two** — CloudTrail handles attribution in this proof of concept. CloudWatch behavioral monitoring, anomaly detection on denied actions, and Secrets Manager access frequency alarms belong in part two alongside the live agent.
+**CloudWatch deferred to part two** 
+CloudTrail handles attribution in this proof of concept. CloudWatch behavioral monitoring, anomaly detection on denied actions, and Secrets Manager access frequency alarms belong in part two alongside the live agent.
 
 ### 8. Summary
 
