@@ -130,10 +130,7 @@ var.workflow_bucket_name
   Enter a value:
 ```
 
-Your public IP address can be retrieved from the terminal:
-
-```powershell
-(Invoke-WebRequest -Uri "https://api.ipify.org").Content
+Your public IP address can be retrieved by going to whatismyipaddress.com or api.ipify.org
 ```
 
 S3 bucket names must be globally unique across all AWS accounts. Append your AWS account ID or initials as a suffix to ensure uniqueness.
