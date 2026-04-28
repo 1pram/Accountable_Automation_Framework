@@ -34,7 +34,7 @@ Repeat for each version and delete marker until `list-object-versions` returns e
 
 ### Suppressing variable prompts for repeated deployments
 
-By design, the Accountable Automation Framework prompts for variable input at each `terraform plan` and `terraform apply`. This is intentional — the prompt sequence is a mindfulness trigger requiring conscious confirmation of each value before infrastructure changes are applied.
+By design, the Accountable Automation Framework prompts for variable input at each `terraform plan` and `terraform apply`. This is intentional, the prompt sequence is a mindfulness trigger requiring conscious confirmation of each value before infrastructure changes are applied.
 
 If you are running repeated deployments and want to suppress the prompts, you can create a `terraform.tfvars` file in your project directory:
 
@@ -73,7 +73,7 @@ You may see:
 
 ### Fix
 
-Confirm the key pair exists in your AWS console under EC2 — Key Pairs in the same region you are deploying to. The name in `terraform.tfvars` must match exactly — no `.pem` extension, case sensitive.
+Confirm the key pair exists in your AWS console under EC2 — Key Pairs in the same region you are deploying to. The name in `terraform.tfvars` must match exactly, no `.pem` extension, case sensitive.
 
 ```hcl
 key_pair_name = "bastion-key-2"
