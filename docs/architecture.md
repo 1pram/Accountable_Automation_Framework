@@ -30,7 +30,7 @@ The private subnet reaches AWS services exclusively through VPC endpoints. No NA
 
 ### Internet Gateway
 
-The internet gateway serves one purpose — inbound SSH from the administrator's IP to the bastion host. The private subnet has no route to the internet gateway.
+The internet gateway serves one purpose, inbound SSH from the administrator's IP to the bastion host. The private subnet has no route to the internet gateway.
 
 ### Security Groups
 
