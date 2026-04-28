@@ -47,7 +47,7 @@ workflow_bucket_name   = "aaf-workflow-SUFFIX"
 ai_service_api_key     = "your-api-key-value"
 ```
 
-Terraform will read this file automatically and skip the prompts. Do not commit `terraform.tfvars` to version control — it is listed in `.gitignore` by default.
+Terraform will read this file automatically and skip the prompts. Do not commit `terraform.tfvars` to version control. It is listed in `.gitignore` by default.
 
 ### Invalid CIDR block error for admin_ip
 
