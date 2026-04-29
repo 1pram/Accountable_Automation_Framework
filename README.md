@@ -49,7 +49,7 @@ accountable_automation_framework/
 ```
 ### Prerequisites
 
-- Terraform >= 1.0
+- Terraform v1.5 or later
 - VSCode terminal or the AWS CLI configured with sufficient permissions to create IAM, EC2, S3, CloudTrail, and Secrets Manager  
   resources.
 - An existing key pair for the bastion SSH access.
