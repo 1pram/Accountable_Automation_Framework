@@ -9,6 +9,7 @@ This guide walks through deploying the Accountable Automation Framework using Te
 - **VSCode** Code editor used to write and manage Terraform configuration files
 - **Draw.io** Used to design the infrastructure dataflow diagrams
 - **eraser.io** Used to generate the cloud architecture diagrams
+- **OWASP Threat Dragon** Used to build and export the formal STRIDE threat model
 
 ### 2. Prerequisites
 
