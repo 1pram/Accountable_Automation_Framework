@@ -13,7 +13,7 @@ This guide walks through deploying the Accountable Automation Framework using Te
 
 ### 2. Prerequisites
 
-- Terraform v1.5+
+- Terraform v1.5 or later
 - AWS CLI v2
 - An existing EC2 key pair in your target AWS region
 - IAM permissions to create: VPC, EC2, IAM, S3, Secrets Manager, CloudTrail, VPC Endpoints
