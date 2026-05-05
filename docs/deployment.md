@@ -110,15 +110,15 @@ terraform plan -out=tfplan
 Terraform prompts for 5 variables (Enter each one when asked):
 
 ```
-Your public IPv4 in CIDR form for SSH to bastion (e.g., 203.0.113.25/32. This can be retrieved by going to whatismyipaddress.com or api.ipify.org)
+- Your public IPv4 in CIDR form for SSH to bastion (e.g., 203.0.113.25/32. This can be retrieved by going to whatismyipaddress.com or api.ipify.org)
 
-var.ai_service_api_key (A mock API key e.g. sk-oc-mock-a7f3d2e8b1c94f6a8e2d5b7c3f1a9e4d use this exact string)
+- var.ai_service_api_key (A mock API key e.g. sk-oc-mock-a7f3d2e8b1c94f6a8e2d5b7c3f1a9e4d use this exact string)
 
-var.cloudtrail_bucket_name (The S3 Logs bucket name. It must be globally unique. Append your account ID or initials)
+- var.cloudtrail_bucket_name (The S3 Logs bucket name. It must be globally unique. Append your account ID or initials)
 
-key_name The name of your EC2 key pair (Without the .pem extension)
+- key_name The name of your EC2 key pair (Without the .pem extension)
 
-var.workflow_bucket_name (the S3 workflow bucket name. This will be used by the human-user and automation role. It must be globally unique. Append your account ID or initials)
+- var.workflow_bucket_name (the S3 workflow bucket name. This will be used by the human-user and automation role. It must be globally unique. Add your account ID or initials)
 ```
 
 Look for approximately:
@@ -153,14 +153,30 @@ Retrieve your IP values for use in subsequent steps:
 terraform output bastion_public_ip
 terraform output windows_private_ip
 ```
-### 7. Open the SSH tunnel to RDP
+### 7. Prepping your host device for file sharing with the Windows instance
+
+1. On your local machine, use the browser to download the AWS CLI installer at: https://awscli.amazonaws.com/AWSCLIV2.msi
+
+2. Move the file to the C: drive's Drivers folder
+
+3. Click on the Windows Key, then on Run, and you will type: mstsc
+
+4. From there, click on "Show Options" near the lower left corner and then on the "Local Resources" tab.
+
+5. Click on More and check the box next to Drives
+
+6. Click OK when you're done
+
+
+### 8. Open the SSH tunnel to RDP
 
 From your local terminal, open a tunnel to forward RDP traffic through the bastion to the Windows instance:
 ```
 ssh -i bastion-key-2.pem -L 3389:<WINDOWS_PRIVATE_IP>:3389 ec2-user@<BASTION_PUBLIC_IP> -N
 ```
+Leave the terminal open. The tunnel must remain active for the duration of your RDP session.
 
-### 8. Retrieve the Windows Administrator Password
+### 9. Retrieve the Windows Administrator Password
 
 The Windows instance generates a random Administrator password encrypted with your key pair.
 
@@ -174,27 +190,34 @@ In the AWS console:
 
 Wait 5 to 10 minutes after the instance launches before attempting to retrieve the password - the instance needs time to complete initialization.
 
-### 8. SSH into the Bastion Host
+### 10. Connect via RDP
 
-```bash
-ssh -i your-key.pem ec2-user@YOUR_BASTION_PUBLIC_IP
+1. With the tunnel open, go back to the RDP screen, click on Connect then on Connect.
+2. Log in as Administrator using the password retrieved in the previous step.
+
+### 11. Retrieving and installing the AWS CLI 
+
+1. On the Windows instance, navigate to where you copied the AWSCLIV2.msi (Windows Explorer-> This PC -> your shared drive -> Drivers
+2. Move AWSCLI2.msi to the instance's Desktop and run the installer.
+3. Once completed, open PowerShell to verify setup,
+   type:
+```
+aws --version
 ```
 
-### 9. RDP into the Windows Instance from the Bastion
+### 12. Create the workflow folder
 
-From the bastion:
-
-```bash
-xfreerdp /u:Administrator /v:YOUR_WINDOWS_PRIVATE_IP /port:3389
+From the PowerShell screen on the Windows instance, create the local working directory:
 ```
+New-Item -Path c:\workflow ItemType Directory.
+```
+This is where both principals will be staging files before uploading them to S3.
 
-Enter the Administrator password retrieved in step 7 when prompted.
+### 13. Configure the Human User Profile on the Windows Instance
 
-### 10. Configure the Human User Profile on the Windows Instance
+On the same PowerShell screen, run:
 
-Once inside the Windows instance, open PowerShell and run:
-
-```powershell
+```
 aws configure --profile human-user
 ```
 
