@@ -190,7 +190,7 @@ In the AWS console:
 
 Wait 5 to 10 minutes after the instance launches before attempting to retrieve the password - the instance needs time to complete initialization.
 
-### 10. Connect via RDP
+### 10. Connect to the Windows instance via RDP
 
 1. With the tunnel open, go back to the RDP screen, click on Connect then on Connect.
 2. Log in as Administrator using the password retrieved in the previous step.
