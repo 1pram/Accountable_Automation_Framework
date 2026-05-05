@@ -18,7 +18,7 @@ This guide walks through deploying the Accountable Automation Framework using Te
 - An existing EC2 key pair in your target AWS region
 - IAM permissions to create: VPC, EC2, IAM, S3, Secrets Manager, CloudTrail, VPC Endpoints
 
-Download your EC2 key pair `.pem` file into the project directory alongside your `.tf` files. The name is your choice — just reference it consistently in the commands below.
+Download your EC2 key pair `.pem` file into the project directory alongside your `.tf` files. The name is your choice. Be sure to reference it consistently in the commands below.
 
 ### Verify tools
 
