@@ -24,7 +24,7 @@ Download your EC2 key pair `.pem` file into the project directory alongside your
 
 From the terminal in VSCode:
 
-```bash
+```
 terraform --version
 aws --version
 aws sts get-caller-identity
@@ -32,7 +32,7 @@ aws sts get-caller-identity
 
 ### Clone the repository
 
-```bash
+```
 git clone https://github.com/<your-repo>/accountable-automation-framework.git
 cd accountable-automation-framework
 ```
@@ -75,7 +75,7 @@ Accountable_Automation_Framework/
 
 ### 4. Initialize Terraform
 
-```bash
+```
 terraform init
 ```
 
@@ -91,7 +91,7 @@ If a provider version mismatch occurs, update your lock file or Terraform versio
 
 ### Validate syntax:
 
-```bash
+```
 terraform validate
 ```
 
@@ -103,38 +103,23 @@ Success! The configuration is valid.
 
 ### Generate the execution plan:
 
-```bash
+```
 terraform plan -out=tfplan
 ```
 
-Terraform will prompt you for five values. Enter each one when asked:
+Terraform prompts for 5 variables (Enter each one when asked):
 
 ```
-var.admin_ip
-  Your public IPv4 in CIDR form for SSH to bastion (e.g., 203.0.113.25/32)
-  Enter a value:
+Your public IPv4 in CIDR form for SSH to bastion (e.g., 203.0.113.25/32. This can be retrieved by going to whatismyipaddress.com or api.ipify.org)
 
-var.ai_service_api_key
-  AI service API key stored in Secrets Manager - replaces plaintext EBS credential storage
-  Enter a value:
+var.ai_service_api_key (A mock API key e.g. sk-oc-mock-a7f3d2e8b1c94f6a8e2d5b7c3f1a9e4d use this exact string)
 
-var.cloudtrail_bucket_name
-  CloudTrail logs S3 bucket name (must be globally unique - append your account ID or initials)
-  Enter a value:
+var.cloudtrail_bucket_name (The S3 Logs bucket name. It must be globally unique. Append your account ID or initials)
 
-var.key_pair_name
-  Existing EC2 key pair name to use for bastion SSH access
-  Enter a value:
+key_name The name of your EC2 key pair (Without the .pem extension)
 
-var.workflow_bucket_name
-  Workflow S3 bucket name for human and automation principals (must be globally unique)
-  Enter a value:
+var.workflow_bucket_name (the S3 workflow bucket name. This will be used by the human-user and automation role. It must be globally unique. Append your account ID or initials)
 ```
-
-Your public IP address can be retrieved by going to whatismyipaddress.com or api.ipify.org
-```
-
-S3 bucket names must be globally unique across all AWS accounts. Append your AWS account ID or initials as a suffix to ensure uniqueness.
 
 Look for approximately:
 
@@ -144,8 +129,8 @@ Plan: 24 to add, 0 to change, 0 to destroy.
 
 ### 6. Apply the Infrastructure
 
-```bash
-terraform apply
+```
+terraform apply tfplan
 ```
 
 You will be prompted for the same five values as during plan. Type `yes` when asked to confirm.
@@ -164,12 +149,18 @@ automation_role_arn     = "arn:aws:iam::...:role/AutomationRole"
 
 Retrieve your IP values for use in subsequent steps:
 
-```bash
+```
 terraform output bastion_public_ip
 terraform output windows_private_ip
 ```
+### 7. Open the SSH tunnel to RDP
 
-### 7. Retrieve the Windows Administrator Password
+From your local terminal, open a tunnel to forward RDP traffic through the bastion to the Windows instance:
+```
+ssh -i bastion-key-2.pem -L 3389:<WINDOWS_PRIVATE_IP>:3389 ec2-user@<BASTION_PUBLIC_IP> -N
+```
+
+### 8. Retrieve the Windows Administrator Password
 
 The Windows instance generates a random Administrator password encrypted with your key pair.
 
