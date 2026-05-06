@@ -238,7 +238,7 @@ Default output format: json
 Run teardown in order. Skipping steps will cause terraform destroy to fail on versioned S3 buckets.
 
 
-***View and clear Secrets Manager***
+**View and clear Secrets Manager**
 
 List secrets:
 ```
@@ -250,7 +250,7 @@ Delete secrets:
 aws secretsmanager delete-secret --secret-id openclaw/automation/ai-service-api-key --force-delete-without-recovery
 ```
 
-***View and clear the S3 workflow bucket***
+**View and clear the S3 workflow bucket**
 
 List contents:
 ```
@@ -262,7 +262,7 @@ Remove all objects:
 aws s3 rm s3://<workflow bucket name> --recursive
 ```
 
-***View and clear the S3 logs bucket***
+**View and clear the S3 logs bucket**
 
 List contents
 ```
@@ -274,7 +274,7 @@ Remove all objects
 aws s3 rm s3://<logs bucket name> --recursive
 ```
 
-***Clear all versioning from each bucket***
+**Clear all versioning from each bucket**
 
 Both buckets have versioning enabled. Deleting objects leaves delete markers and version history behind. Use the following script to purge all versions and delete markers from a bucket before destroying:
 
