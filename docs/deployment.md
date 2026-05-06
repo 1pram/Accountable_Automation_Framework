@@ -254,31 +254,31 @@ aws secretsmanager delete-secret --secret-id openclaw/automation/ai-service-api-
 
 List contents:
 ```
-aws s3 ls s3://<workflow bucket name> --recursive
+aws s3 ls s3://<workflow_bucket_name> --recursive
 ```
 
 Remove all objects:
 ```
-aws s3 rm s3://<workflow bucket name> --recursive
+aws s3 rm s3://<workflow_bucket_name> --recursive
 ```
 
 **View and clear the S3 logs bucket**
 
 List contents
 ```
-aws s3 ls s3://<logs bucket name> --recursive
+aws s3 ls s3://<logs_bucket_name> --recursive
 ```
 
 Remove all objects
 ```
-aws s3 rm s3://<logs bucket name> --recursive
+aws s3 rm s3://<logs_bucket_name> --recursive
 ```
 
 **Clear all versioning from each bucket**
 
 Both buckets have versioning enabled. Deleting objects leaves delete markers and version history behind. Use the following script to purge all versions and delete markers from a bucket before destroying:
 
-$bucket = "<YOUR BUCKET NAME>"
+$bucket = "<YOUR_BUCKET_NAME>"
 
 $versions = aws s3api list-object-versions --bucket $bucket | ConvertFrom-Json
 
