@@ -40,7 +40,7 @@ With the human user profile:
 aws sts get-caller-identity --profile human-user
 ```
 
-Expected — human user identity:
+Expected human user identity:
 
 ```
 {
