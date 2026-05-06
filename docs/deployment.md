@@ -286,7 +286,7 @@ foreach ($v in $versions.Versions) {
     aws s3api delete-object --bucket $bucket --key $v.Key --version-id $v.VersionId
 }
 Running this script once for each S3 bucket (logs and workflow) substituting the correct bucket name as applicable.
-
+```
 
 **Destroy the infrastructure**
 ```
