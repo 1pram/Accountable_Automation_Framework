@@ -211,7 +211,7 @@ aws --version
 
 From the PowerShell screen on the Windows instance, create the local working directory:
 ```
-New-Item -Path c:\workflow ItemType Directory.
+New-Item -Path c:\workflow -ItemType Directory.
 ```
 This is where both principals will be staging files before uploading them to S3.
 
