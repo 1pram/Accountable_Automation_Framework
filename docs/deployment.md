@@ -174,7 +174,7 @@ terraform output windows_private_ip
 
 From your local terminal, open a tunnel to forward RDP traffic through the bastion to the Windows instance:
 ```
-ssh -i <YOUR_KEY_PAIR_FILE_NAME.pem> -L 3389:<WINDOWS_PRIVATE_IP>:3389 ec2-user@<BASTION_PUBLIC_IP> -N
+ssh -i <YOUR_KEY_PAIR_FILE'S_NAME.pem> -L 3389:<WINDOWS_PRIVATE_IP>:3389 ec2-user@<BASTION_PUBLIC_IP> -N
 ```
 Leave the terminal open. The tunnel must remain active for the duration of your RDP session.
 
