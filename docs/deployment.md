@@ -277,8 +277,8 @@ aws s3 rm s3://<logs_bucket_name> --recursive
 **Clear all versioning from each bucket**
 
 Both buckets have versioning enabled. Deleting objects leaves delete markers and version history behind. Use the following script to purge all versions and delete markers from a bucket before destroying:
-
-$bucket = "<YOUR_BUCKET_NAME>"
+```
+$bucket = "<your_bucket_name>"
 
 $versions = aws s3api list-object-versions --bucket $bucket | ConvertFrom-Json
 
@@ -289,5 +289,5 @@ foreach ($v in $versions.Versions) {
 foreach ($m in $versions.DeleteMarkers) {
     aws s3api delete-object --bucket $bucket --key $m.Key --version-id $m.VersionId
 }
-
+```
 
