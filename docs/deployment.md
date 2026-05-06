@@ -161,11 +161,13 @@ terraform output windows_private_ip
 
 3. Click on the Windows Key, then on Run, and you will type: mstsc
 
-4. From there, click on "Show Options" near the lower left corner and then on the "Local Resources" tab.
+4. Press Enter
 
-5. Click on More and check the box next to Drives
+5. From there, click on "Show Options" at the lower left corner and then on the "Local Resources" tab.
 
-6. Click OK when you're done
+6. Click on More and check the box next to Drives
+
+7. Click OK when you're done
 
 
 ### 8. Open the SSH tunnel to RDP
@@ -215,6 +217,7 @@ This is where both principals will be staging files before uploading them to S3.
 
 ### 13. Configure the Human User Profile on the Windows Instance
 
+The Windows instance inherits the automation role by default through its instance profile. The human user identity must be configured explicitly as a named profile, requiring a conscious act to invoke it.
 On the same PowerShell screen, run:
 
 ```
@@ -230,144 +233,61 @@ Default region name:   us-east-1
 Default output format: json
 ```
 
-### 11. Automation Role Actions
+### 14. Teardown Sequence
 
-The instance carries the automation role by default via the instance profile. No profile flag is needed. Run each command from PowerShell.
+Run teardown in order. Skipping steps will cause terraform destroy to fail on versioned S3 buckets.
 
-List all IAM users in the account - confirms the automation role has enumeration access:
 
-```powershell
-aws iam list-users
+***View and clear Secrets Manager***
+
+List secrets:
+```
+aws secretsmanager list-secrets
 ```
 
-Write a log file to the automation prefix in the workflow bucket - confirms scoped S3 write access:
-
-```powershell
-"automation log" | Out-File C:\workflow\automation\log.txt
-aws s3 cp C:\workflow\automation\log.txt s3://YOUR_WORKFLOW_BUCKET/automation/
+Delete secrets:
+```
+aws secretsmanager delete-secret --secret-id openclaw/automation/ai-service-api-key --force-delete-without-recovery
 ```
 
-Retrieve the AI service API key from Secrets Manager - confirms encrypted credential retrieval:
+***View and clear the S3 workflow bucket***
 
-```powershell
-aws secretsmanager get-secret-value --secret-id openclaw/automation/ai-service-api-key
+List contents:
+```
+aws s3 ls s3://<workflow bucket name> --recursive
 ```
 
-The following two actions are outside the automation role's defined scope. Both will return an access denied error - confirming the permissions boundary is holding.
-
-Attempt to enable CloudTrail logging:
-
-```powershell
-aws cloudtrail start-logging --name aaf-trail
+Remove all objects:
+```
+aws s3 rm s3://<workflow bucket name> --recursive
 ```
 
-Attempt to create an EBS snapshot:
+***View and clear the S3 logs bucket***
 
-```powershell
-aws ec2 create-snapshot --volume-id YOUR_VOLUME_ID
+List contents
+```
+aws s3 ls s3://<logs bucket name> --recursive
 ```
 
-Your volume ID can be retrieved from the terminal:
-
-```powershell
-aws ec2 describe-volumes --query 'Volumes[0].VolumeId' --output text
+Remove all objects
+```
+aws s3 rm s3://<logs bucket name> --recursive
 ```
 
-### 12. Human User Actions
+***Clear all versioning from each bucket***
 
-The human user profile must be invoked explicitly. Add `--profile human-user` to each command.
+Both buckets have versioning enabled. Deleting objects leaves delete markers and version history behind. Use the following script to purge all versions and delete markers from a bucket before destroying:
 
-List all IAM users in the account - the same action as the automation role, logged under a different identity:
+$bucket = "<YOUR BUCKET NAME>"
 
-```powershell
-aws iam list-users --profile human-user
-```
+$versions = aws s3api list-object-versions --bucket $bucket | ConvertFrom-Json
 
-Write a file to the human prefix in the workflow bucket - confirms the human user's scoped S3 write access:
+foreach ($v in $versions.Versions) {
+    aws s3api delete-object --bucket $bucket --key $v.Key --version-id $v.VersionId
+}
 
-```powershell
-"human file" | Out-File C:\workflow\human\file.txt
-aws s3 cp C:\workflow\human\file.txt s3://YOUR_WORKFLOW_BUCKET/human/ --profile human-user
-```
+foreach ($m in $versions.DeleteMarkers) {
+    aws s3api delete-object --bucket $bucket --key $m.Key --version-id $m.VersionId
+}
 
-Reboot the workflow instance - confirms the human user's instance management permission:
 
-```powershell
-aws ec2 reboot-instances --instance-ids YOUR_INSTANCE_ID --profile human-user
-```
-
-Your instance ID can be retrieved from the instance metadata endpoint:
-
-```powershell
-Invoke-RestMethod -Uri http://169.254.169.254/latest/meta-data/instance-id
-```
-
-### 13. Query CloudTrail from the Bastion
-
-SSH back into the bastion and run each query individually. CloudTrail has a delivery delay of approximately 5 to 15 minutes - if results are empty, wait and try again.
-
-List all ListUsers events grouped by principal reveals that the same action was performed by two distinct identities:
-
-```bash
-aws cloudtrail lookup-events \
-  --lookup-attributes AttributeKey=EventName,AttributeValue=ListUsers \
-  --query 'Events[*].{Time:EventTime,User:Username,Event:EventName}' \
-  --output table
-```
-
-List all denied actions reveals that the automation role's boundary held and the attempt was recorded:
-
-```bash
-aws cloudtrail lookup-events \
-  --lookup-attributes AttributeKey=EventName,AttributeValue=StartLogging \
-  --query 'Events[*].{Time:EventTime,User:Username,Event:EventName}' \
-  --output table
-```
-
-List all activity attributed to the automation role reveals the complete automation trail under a single named identity:
-
-```bash
-aws cloudtrail lookup-events \
-  --lookup-attributes AttributeKey=Username,AttributeValue=AutomationRole \
-  --query 'Events[*].{Time:EventTime,Event:EventName,User:Username}' \
-  --output table
-```
-
-List all activity attributed to the human user reveals the complete human trail under a separate named identity:
-
-```bash
-aws cloudtrail lookup-events \
-  --lookup-attributes AttributeKey=Username,AttributeValue=aaf-human-user \
-  --query 'Events[*].{Time:EventTime,Event:EventName,User:Username}' \
-  --output table
-```
-
-See `testing-validation.md` for expected outputs and the full validation workflow.
-
-### 14. Cleanup
-
-When done, empty the versioned S3 buckets before destroying. List object versions first:
-
-```powershell
-aws s3api list-object-versions --bucket YOUR_CLOUDTRAIL_BUCKET
-```
-
-Delete each version using the exact Key and VersionId from the output:
-
-```powershell
-aws s3api delete-object --bucket YOUR_CLOUDTRAIL_BUCKET --key "YOUR_KEY" --version-id "YOUR_VERSION_ID"
-```
-
-For delete markers with a null VersionId:
-
-```powershell
-aws s3api delete-object --bucket YOUR_CLOUDTRAIL_BUCKET --key "YOUR_KEY" --version-id "null"
-```
-
-Then destroy the infrastructure:
-
-```bash
-terraform destroy
-```
-
-If deletion fails due to versioned objects, follow the instructions in `troubleshooting.md`.
