@@ -115,8 +115,8 @@ The human user's IAM policy does not include CloudTrail permissions. Only the ba
 ```
 ssh -i <YOUR_KEY_PAIR_FILE'S_NAME> ec2-user@<BASTION'S_PUBLIC_IP>
 ```
-The bastion host carries the instance profile with CloudTrail and S3 read permissions. All CloudTrail queries and log inspection are performed from  
-here.
+The bastion host carries the instance profile with CloudTrail and S3 read permissions. All CloudTrail queries and log inspection are performed from here.
+
 2. From the bastion, list the CloudTrail log files delivered to S3
 ```
 aws s3 ls s3://<CLOUDTRAIL_BUCKET>/AWSLogs/<ACCOUNT_ID>/CloudTrail/us-east-1/ --recursive | tail -20
