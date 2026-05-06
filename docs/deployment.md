@@ -278,15 +278,20 @@ aws s3 rm s3://<logs_bucket_name> --recursive
 
 Both buckets have versioning enabled. Deleting objects leaves delete markers and version history behind. Use the following script to purge all versions and delete markers from a bucket before destroying:
 ```
-$bucket = "<your_bucket_name>"
+$bucket = "<YOUR_BUCKET_NAME>"
 
 $versions = aws s3api list-object-versions --bucket $bucket | ConvertFrom-Json
 
 foreach ($v in $versions.Versions) {
     aws s3api delete-object --bucket $bucket --key $v.Key --version-id $v.VersionId
 }
-Running this script once for each S3 bucket (logs and workflow) substituting the correct bucket name as applicable.
+
+foreach ($m in $versions.DeleteMarkers) {
+    aws s3api delete-object --bucket $bucket --key $m.Key --version-id $m.VersionId
+}
 ```
+Running this script once for each S3 bucket (logs and workflow) substituting the correct bucket name as applicable.
+
 
 **Destroy the infrastructure**
 ```
@@ -294,8 +299,4 @@ terraform destroy
 ```
 Confirm `yes` when prompted. Destruction takes approximately 3 to 5 minutes.
 
-foreach ($m in $versions.DeleteMarkers) {
-    aws s3api delete-object --bucket $bucket --key $m.Key --version-id $m.VersionId
-}
-```
 
