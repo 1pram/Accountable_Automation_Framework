@@ -59,7 +59,8 @@ ssh -i <YOUR_KEY_PAIR_FILE'S_NAME.pem> ec2-user@<BASTION'S_PUBLIC_IP>
 Expected: successful login to the bastion
 This confirms the bastion is reachable from the Internet on port 22 and that your key pair is valid.
 
-**Test 2 SSH attempt into the Windows instance**
+**Test 2 
+SSH attempt into the Windows instance**
 
 From your local machine:
 ```
@@ -68,7 +69,8 @@ ssh -i <YOUR_KEY_PAIR_FILE'S_NAME.pem> ec2-user@<WINDOWS INSTANCE'S_PRIVATE_IP>
 Expected: connection times out or is refused
 The Windows instance has no public IP and its security group does not permit inbound SSH from the Internet. The only path in is through the bastion tunnel/funnel.
 
-**Test 3 SSH attempt into the bastion from the Windows instance**
+**Test 3 
+SSH attempt into the bastion from the Windows instance**
 
 `ssh ec2-user@<BASTION'S_IP>`
 
@@ -76,7 +78,8 @@ Expected: connection refused or permission denied.
 The bastion security group does not permit inbound SSH from the private subnet.
 Traffic flows one way, inbound from the Internet to the bastion, then forwarded to the Windows instance. The Windows instance cannot initiate connections back to the bastion.
 
-**Test 4 Automation role writes to Automation Prefix**
+**Test 4
+Automation role writes to Automation Prefix**
 
 1. From the Windows instance, create a file and upload it to the automation prefix using the default instance profile:
 
@@ -87,13 +90,15 @@ aws s3 cp C:\Workflow\todolist.txt s3://<WORKFLOW_BUCKET>/automation/
 ```
 Expected: A successful upload confirms the automation role has write access to its designated prefix/folder of directory. 
 
-**Test 5 Automation role attempts to write to the human prefix**
+**Test 5
+Automation role attempts to write to the human prefix**
 
 From the Windows instance, type: `aws s3 cp c:\workflow\todolist.txt s3://<WORKFLOW_BUCKET>/human/`
 
 Expected: An error occurred (Access denied) when calling the PutObject operation
 
-**Test 6 Human user writes to the human prefix**
+**Test 6
+Human user writes to the human prefix**
 
 Create a file and upload it to the human prefix:
 ```
@@ -102,14 +107,16 @@ aws s3 cp c:\workflow\report.txt s3://<WORKFLOW_BUCKET>/human/
 ```
 Expected: A successful upload confirms the human user has write access to its designated prefix/folder of directory. 
 
-**Test 7 Human user attempts CloudTrail lookup**
+**Test 7
+Human user attempts CloudTrail lookup**
 
 Type or copy and past: `aws cloudtrail lookup-events --lookup-attributes AttributeKey=EventName,AttributeValue=PutObject --output table --profile human-user`
 
 Expected: An error occurred (AccessDeniedException)...
 The human user's IAM policy does not include CloudTrail permissions. Only the bastion can query the the audit trail. 
 
-**Test 8 SSH into the Bastion to access raw logs**
+**Test 
+8 SSH into the Bastion to access raw logs**
 
 1. From your local machine:
 ```
@@ -125,7 +132,8 @@ Expected: a list of .json.gz files timestamped at roughly 5-minute intervals con
 
 Note: S3 data events may take up to 15 minutes to appear after the action occurs. Management events typically appear faster.
 
-**Test 9 Inspect raw logs for PutObject attribution**
+**Test 9
+Inspect raw logs for PutObject attribution**
 
 Download all of today's log files from the bastion and search them for PutObject events:
 ```
