@@ -127,6 +127,23 @@ Note: S3 data events may take up to 15 minutes to appear after the action occurs
 
 **Test 9 Inspect raw logs for PutObject attribution**
 
-
-
-
+Download all of today's log files from the bastion and search them for PutObject events:
+```
+aws s3 cp s3://<CLOUDTRAIL_BUCKET>/AWSLogs/<ACCOUNT_ID>/CloudTrail/us-east-1/$(date +%Y/%m/%d)/ /tmp/ctlogs/ --recursive && gunzip /tmp/ctlogs/*.gz
+```
+Then run the Python attribution script:
+```
+python3 -c "
+import json, os
+files = ['/tmp/ctlogs/' + f for f in os.listdir('/tmp/ctlogs/') if f.endswith('.json')]
+for f in sorted(files):
+    data = json.load(open(f))
+    for e in data.get('Records', []):
+        if e.get('eventName') == 'PutObject':
+            print('File:', f)
+            print('Time:', e.get('eventTime'))
+            print('Principal:', json.dumps(e.get('userIdentity'), indent=2))
+            print('Bucket/Key:', e.get('requestParameters', {}).get('bucketName'), '/', e.get('requestParameters', {}).get('key'))
+            print('---')
+"
+```
