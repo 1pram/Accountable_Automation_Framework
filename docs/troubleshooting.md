@@ -76,13 +76,13 @@ You may see:
 Confirm the key pair exists in your AWS console under EC2 Key Pairs in the same region you are deploying to. The name in `terraform.tfvars` must match exactly, no `.pem` extension, case sensitive.
 
 ```hcl
-key_pair_name = "bastion-key-2"
+key_pair_name = "bastion-key"
 ```
 
 Not:
 
 ```hcl
-key_pair_name = "bastion-key-2.pem"
+key_pair_name = "bastion-key.pem"
 ```
 
 ### Windows Administrator password not available immediately
